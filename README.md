@@ -93,11 +93,20 @@ For each open issue in `issues/issues.csv`:
 pip install -r requirements.txt
 ```
 
-### 2. Configure Environment Variables
-```powershell
-$env:GROQ_API_KEY="your-groq-api-key"
-$env:GROQ_MODEL="openai/gpt-oss-120b"
+### 2. Configure Environment Variables (Dual Groq Key Setup)
+Create or edit `.env` in the project root:
+```env
+# Key 1: For Ticket Processing Workflow (user ticket submissions & official review)
+GROQ_API_KEY=gsk_your_ticket_key_here
+TICKET_AGENT_GROQ_KEY=gsk_your_ticket_key_here
+
+# Key 2: Dedicated Key for Autonomous Testing & Fix Agent (avoids shared rate limits)
+TESTING_AGENT_GROQ_KEY=gsk_your_testing_key_here
+
+# Model Selection
+GROQ_MODEL=openai/gpt-oss-120b
 ```
+> **Tip:** If `TESTING_AGENT_GROQ_KEY` is left blank, the system automatically falls back to `GROQ_API_KEY`. Providing a dedicated second key isolates testing runs from ticket processing rate limits.
 
 ### 3. Generate Seed Cases & Golden Snapshots
 ```powershell

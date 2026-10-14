@@ -21,9 +21,11 @@ if env_path.is_file():
                 os.environ[k] = v
 
 
+from pipeline.llm_client import get_groq_api_key
+
 def _call_groq_judge(system_prompt: str, user_prompt: str) -> Dict[str, Any]:
     """Single call to Groq for judge evaluation with JSON output."""
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = get_groq_api_key(for_testing=True)
     model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
     fallback_model = "llama-3.3-70b-versatile"
 

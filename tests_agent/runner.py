@@ -19,7 +19,7 @@ from pipeline.stages import (
     extract_text, extract_fields, check_documents, validate_ticket, generate_report,
     STAGE_REGISTRY
 )
-from pipeline.llm_client import load_and_render_prompt
+from pipeline.llm_client import load_and_render_prompt, set_testing_mode
 from tests_agent.graph import get_stages_in_order, downstream_of
 from tests_agent.assertions.schema import assert_schema
 from tests_agent.assertions.rules import assert_rules
@@ -30,6 +30,7 @@ logger = logging.getLogger("tests_agent.runner")
 
 class TestRunner:
     def __init__(self, config_path: str = "tests_agent/config.yaml"):
+        set_testing_mode(True)
         self.config_path = Path(config_path)
         with open(self.config_path, "r", encoding="utf-8") as f:
             self.config = yaml.safe_load(f) or {}

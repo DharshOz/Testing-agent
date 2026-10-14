@@ -16,6 +16,7 @@ from groq import Groq
 from tests_agent.runner import TestRunner
 from tests_agent.graph import get_stages_in_order, downstream_of, get_stage_info
 from tests_agent.report import format_markdown_report
+from pipeline.llm_client import get_groq_api_key, set_testing_mode
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("fix_agent")
@@ -86,7 +87,7 @@ def call_groq_propose_fix(
     Calls Groq to propose a generic prompt fix, incorporating user-provided solution guidance if present.
     Returns (new_prompt_content, diff_or_explanation).
     """
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = get_groq_api_key(for_testing=True)
     model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
     fallback_model = "llama-3.3-70b-versatile"
 
@@ -179,6 +180,7 @@ class FixAgentLoop:
             self.config = yaml.safe_load(f) or {}
 
         self.runner = TestRunner(config_path)
+        set_testing_mode(True)
         self.issues_csv_path = Path(self.config.get("paths", {}).get("issues_csv", "issues/issues.csv"))
         self.max_attempts = int(self.config.get("thresholds", {}).get("max_attempts", 4))
         self.max_tokens_budget = int(os.environ.get("MAX_TOKENS_BUDGET", self.config.get("thresholds", {}).get("max_tokens_budget", 100000)))

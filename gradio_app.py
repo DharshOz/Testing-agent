@@ -24,9 +24,27 @@ from tests_agent.graph import get_stage_info, get_stages_in_order, downstream_of
 from tests_agent.runner import TestRunner
 from tests_agent.fix_agent import FixAgentLoop
 from tests_agent.detect_changes import get_changed_stages, get_test_plan
+from pipeline.llm_client import get_keys_status, set_testing_mode, reload_env
 from sqlmodel import Session, select
 
 init_db()
+
+def get_key_status_markdown() -> str:
+    status = get_keys_status()
+    t_status = "🟢 Connected" if status["ticket_key_configured"] else "🔴 Unset"
+    if status["is_dedicated_test_key"]:
+        test_status = f"🟢 Dedicated Key (`{status['testing_key_masked']}`)"
+    elif status["testing_key_configured"]:
+        test_status = f"🟢 Connected (`{status['testing_key_masked']}`)"
+    else:
+        test_status = "🟡 Shared Quota (Fallback to Ticket Key)"
+
+    return (
+        f"> **🔑 Dual Groq API Key Engine:** "
+        f"**Ticket Processing Agent:** {t_status} (`{status['ticket_key_masked']}`) &nbsp;|&nbsp; "
+        f"**Autonomous Testing Agent:** {test_status} &nbsp;|&nbsp; "
+        f"**Model:** `{os.environ.get('GROQ_MODEL', 'openai/gpt-oss-120b')}`"
+    )
 
 # Sample directory mapping
 SAMPLE_PRESETS = {
@@ -94,6 +112,7 @@ def process_ticket_flow(
     6. Stage 5 Report Preview Text
     7. Generated DOCX file path
     """
+    set_testing_mode(False)
     files_to_use = []
     if uploaded_files:
         files_to_use = [f.name if hasattr(f, 'name') else str(f) for f in uploaded_files]
@@ -257,6 +276,7 @@ def run_agent_solve_problem(
     if not selected_issue_text or "Issue #" not in selected_issue_text:
         return "⚠️ Please select a valid issue first.", "", pd.DataFrame(), ""
 
+    set_testing_mode(True)
     issue_id = selected_issue_text.split("#")[1].split(" ")[0].strip()
 
     agent = FixAgentLoop()
@@ -306,6 +326,7 @@ def run_agent_solve_problem(
 
 def run_full_test_suite_action(mode: str) -> Tuple[str, pd.DataFrame]:
     """Runs tests and returns summary status and table."""
+    set_testing_mode(True)
     cmd = [sys.executable, "run_tests.py"]
     if mode == "Changed Stages Only":
         cmd.extend(["--mode", "changed"])
@@ -369,6 +390,7 @@ with gr.Blocks(title="AI Document Workflow & Testing Agent") as demo:
     # 🏛️ Civic AI Platform & Autonomous Testing Agent Dashboard
     ### Complete Multi-Stage Document Processing Pipeline, Failure-to-Test Flywheel, and Human-Guided Prompt Healing
     """)
+    key_status_banner = gr.Markdown(get_key_status_markdown())
 
     with gr.Tabs():
         # -------------------------------------------------------------

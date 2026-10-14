@@ -139,9 +139,11 @@ page = st.sidebar.radio(
 st.sidebar.divider()
 st.sidebar.markdown("### ⚙️ Engine Status")
 model_name = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
-groq_key_present = bool(os.environ.get("GROQ_API_KEY"))
+ticket_key_present = bool(os.environ.get("TICKET_AGENT_GROQ_KEY") or os.environ.get("GROQ_API_KEY"))
+test_key_present = bool(os.environ.get("TESTING_AGENT_GROQ_KEY"))
 st.sidebar.markdown(f"**LLM Model:** `{model_name}`")
-st.sidebar.markdown(f"**Groq API Key:** {'✅ Configured' if groq_key_present else '⚠️ Missing (Offline Mock)'}")
+st.sidebar.markdown(f"**Ticket Groq Key:** {'✅ Configured' if ticket_key_present else '⚠️ Missing'}")
+st.sidebar.markdown(f"**Testing Groq Key:** {'✅ Dedicated Key' if test_key_present else '🟡 Shared Quota'}")
 st.sidebar.markdown("**Embeddings:** `fastembed (bge-small-en-v1.5)`")
 st.sidebar.markdown("**Vector Store:** `Qdrant Local (./qdrant_data)`")
 

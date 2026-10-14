@@ -13,18 +13,69 @@ from groq import Groq
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("llm_client")
 
-# Auto-load .env if exists
-env_path = Path(".env")
-if not env_path.is_file():
-    env_path = Path(__file__).resolve().parent.parent / ".env"
-if env_path.is_file():
-    for line in env_path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            k, v = k.strip(), v.strip().strip('"').strip("'")
-            if k not in os.environ:
+def reload_env():
+    """Reloads .env variables into os.environ."""
+    env_path = Path(".env")
+    if not env_path.is_file():
+        env_path = Path(__file__).resolve().parent.parent / ".env"
+    if env_path.is_file():
+        for line in env_path.read_text(encoding="utf-8").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                k, v = k.strip(), v.strip().strip('"').strip("'")
                 os.environ[k] = v
+
+reload_env()
+
+# Context mode for separating Ticket Agent calls vs Testing Agent calls
+_TESTING_MODE = False
+
+def set_testing_mode(enabled: bool = True):
+    """Sets whether subsequent LLM pipeline calls run in Testing Agent mode."""
+    global _TESTING_MODE
+    _TESTING_MODE = enabled
+
+def is_testing_mode() -> bool:
+    return _TESTING_MODE
+
+def get_groq_api_key(for_testing: Optional[bool] = None) -> Optional[str]:
+    """
+    Returns the appropriate Groq API key:
+    - If for_testing=True (or testing mode is active):
+      returns TESTING_AGENT_GROQ_KEY, falling back to GROQ_API_KEY.
+    - Otherwise (Ticket agent mode):
+      returns TICKET_AGENT_GROQ_KEY or GROQ_API_KEY.
+    """
+    reload_env()
+    is_test = _TESTING_MODE if for_testing is None else for_testing
+    if is_test:
+        test_key = (
+            os.environ.get("TESTING_AGENT_GROQ_KEY", "").strip()
+            or os.environ.get("TEST_AGENT_GROQ_KEY", "").strip()
+        )
+        if test_key:
+            return test_key
+        return os.environ.get("GROQ_API_KEY", "").strip() or None
+
+    ticket_key = os.environ.get("TICKET_AGENT_GROQ_KEY", "").strip()
+    if ticket_key:
+        return ticket_key
+    return os.environ.get("GROQ_API_KEY", "").strip() or None
+
+def get_keys_status() -> Dict[str, Any]:
+    """Returns current status of Ticket Agent and Testing Agent Groq keys."""
+    reload_env()
+    t_key = os.environ.get("TICKET_AGENT_GROQ_KEY", "").strip() or os.environ.get("GROQ_API_KEY", "").strip()
+    test_key = os.environ.get("TESTING_AGENT_GROQ_KEY", "").strip() or os.environ.get("TEST_AGENT_GROQ_KEY", "").strip()
+    
+    return {
+        "ticket_key_configured": bool(t_key),
+        "ticket_key_masked": f"{t_key[:6]}...{t_key[-4:]}" if len(t_key) >= 12 else ("Set" if t_key else "Unset"),
+        "testing_key_configured": bool(test_key),
+        "testing_key_masked": f"{test_key[:6]}...{test_key[-4:]}" if len(test_key) >= 12 else ("Set" if test_key else "Unset"),
+        "is_dedicated_test_key": bool(test_key and test_key != t_key),
+    }
 
 T = TypeVar("T", bound=BaseModel)
 
@@ -84,11 +135,14 @@ def llm_call(
     variables: Dict[str, Any],
     schema: Optional[Type[T]] = None,
     model: Optional[str] = None,
+    for_testing: Optional[bool] = None,
+    api_key_override: Optional[str] = None,
 ) -> tuple[Any, str]:
     """
     Unified LLM call function:
     - Loads prompt file from disk (never inline in code)
     - Records prompt version hash
+    - Selects dedicated key for Ticket Agent vs Testing Agent
     - Calls Groq with temperature=0
     - Retries once on invalid JSON / schema parse failure
     - Logs input/output/latency/prompt hash
@@ -96,11 +150,13 @@ def llm_call(
     Returns (parsed_result, prompt_hash).
     """
     rendered_prompt, prompt_hash = load_and_render_prompt(prompt_file, variables)
-    api_key = os.environ.get("GROQ_API_KEY")
+    api_key = api_key_override or get_groq_api_key(for_testing=for_testing)
     groq_model = model or os.environ.get("GROQ_MODEL", DEFAULT_MODEL)
 
+    active_mode = "TestingAgent" if (_TESTING_MODE if for_testing is None else for_testing) else "TicketAgent"
+
     if not api_key:
-        logger.warning("GROQ_API_KEY is not set. Simulating/mocking LLM response.")
+        logger.warning(f"Groq API key for {active_mode} is not set. Simulating/mocking LLM response.")
         # If no API key, return a mock response conformant to schema if provided
         return _mock_llm_fallback(prompt_file, variables, schema), prompt_hash
 
@@ -116,7 +172,7 @@ def llm_call(
 
     for attempt in range(1, max_attempts + 1):
         start_time = time.time()
-        logger.info(f"LLM Call attempt {attempt}/{max_attempts} | prompt={prompt_file} | hash={prompt_hash} | model={groq_model}")
+        logger.info(f"LLM Call attempt {attempt}/{max_attempts} | mode={active_mode} | prompt={prompt_file} | hash={prompt_hash} | model={groq_model}")
 
         try:
             # We attempt json_object response format
