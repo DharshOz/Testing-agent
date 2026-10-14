@@ -176,7 +176,9 @@ Please provide the complete, updated, improved prompt content that resolves this
         except Exception as e:
             err_str = str(e)
             logger.warning(f"Groq fix proposal failed with model {selected_model}: {err_str}")
-            if "429" in err_str or "rate_limit" in err_str.lower():
+            if "tokens per day" in err_str.lower() or "tpd" in err_str.lower():
+                logger.info("Daily tokens exhausted on 120b. Immediately switching to fallback model openai/gpt-oss-20b...")
+            elif "429" in err_str or "rate_limit" in err_str.lower():
                 wait_m = re.search(r"try again in ([0-9.]+)s", err_str)
                 wait_sec = float(wait_m.group(1)) + 1.5 if wait_m else 11.0
                 logger.info(f"Rate limited on {selected_model}. Waiting {wait_sec:.1f}s before trying fallback model...")

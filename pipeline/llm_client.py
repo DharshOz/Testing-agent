@@ -80,8 +80,17 @@ def get_keys_status() -> Dict[str, Any]:
 
 T = TypeVar("T", bound=BaseModel)
 
-# Default to gpt-oss-120b as specified, with GROQ_MODEL env var override
-DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
+# Default to gpt-oss-20b to prevent Daily Token Limits (TPD) on 120b
+DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-20b")
+_ACTIVE_MODEL_OVERRIDE: Optional[str] = None
+_RESPONSE_CACHE: Dict[str, Any] = {}
+
+def get_effective_model(requested_model: Optional[str] = None) -> str:
+    """Returns effective model, automatically downgrading from 120b if daily quota is reached."""
+    global _ACTIVE_MODEL_OVERRIDE
+    if _ACTIVE_MODEL_OVERRIDE:
+        return _ACTIVE_MODEL_OVERRIDE
+    return requested_model or os.environ.get("GROQ_MODEL", DEFAULT_MODEL)
 
 
 def get_prompt_hash(prompt_text: str) -> str:
@@ -144,21 +153,33 @@ def llm_call(
     - Loads prompt file from disk (never inline in code)
     - Records prompt version hash
     - Selects dedicated key for Ticket Agent vs Testing Agent
-    - Calls Groq with temperature=0
-    - Retries once on invalid JSON / schema parse failure
-    - Logs input/output/latency/prompt hash
+    - Caches prompt-variable outputs to save tokens
+    - Retries with intelligent backoff and automatic model fallback
     
     Returns (parsed_result, prompt_hash).
     """
+    global _ACTIVE_MODEL_OVERRIDE
     rendered_prompt, prompt_hash = load_and_render_prompt(prompt_file, variables)
     api_key = api_key_override or get_groq_api_key(for_testing=for_testing)
-    groq_model = model or os.environ.get("GROQ_MODEL", DEFAULT_MODEL)
+    groq_model = get_effective_model(model)
 
     active_mode = "TestingAgent" if (_TESTING_MODE if for_testing is None else for_testing) else "TicketAgent"
 
+    # Token-Saving Cache Check:
+    try:
+        vars_str = json.dumps(variables, sort_keys=True, default=str)
+    except Exception:
+        vars_str = str(variables)
+    cache_key = hashlib.sha256(f"{prompt_hash}_{groq_model}_{vars_str}".encode()).hexdigest()
+    if cache_key in _RESPONSE_CACHE:
+        cached_result = _RESPONSE_CACHE[cache_key]
+        logger.info(f"LLM Call Cache HIT | prompt={prompt_file} | hash={prompt_hash} (0 tokens used)")
+        if schema is not None and isinstance(cached_result, dict):
+            return schema.model_validate(cached_result), prompt_hash
+        return cached_result, prompt_hash
+
     if not api_key:
         logger.warning(f"Groq API key for {active_mode} is not set. Simulating/mocking LLM response.")
-        # If no API key, return a mock response conformant to schema if provided
         return _mock_llm_fallback(prompt_file, variables, schema), prompt_hash
 
     client = Groq(api_key=api_key)
@@ -176,7 +197,6 @@ def llm_call(
         logger.info(f"LLM Call attempt {attempt}/{max_attempts} | mode={active_mode} | prompt={prompt_file} | hash={prompt_hash} | model={groq_model}")
 
         try:
-            # We attempt json_object response format
             response = client.chat.completions.create(
                 model=groq_model,
                 messages=messages,
@@ -192,7 +212,9 @@ def llm_call(
 
             if schema is not None:
                 validated = schema.model_validate(parsed_dict)
+                _RESPONSE_CACHE[cache_key] = validated
                 return validated, prompt_hash
+            _RESPONSE_CACHE[cache_key] = parsed_dict
             return parsed_dict, prompt_hash
 
         except Exception as e:
@@ -200,15 +222,23 @@ def llm_call(
             latency = time.time() - start_time
             err_str = str(e)
 
-            # Handle Groq 429 Rate Limits / TPM burst exhaustion
-            if "429" in err_str or "rate_limit" in err_str.lower():
+            # 1. Handle Daily Token Exhaustion (TPD)
+            if "tokens per day" in err_str.lower() or "tpd" in err_str.lower():
+                logger.warning("Groq Tokens Per Day (TPD) limit exhausted for 120b. Auto-switching to openai/gpt-oss-20b.")
+                _ACTIVE_MODEL_OVERRIDE = "openai/gpt-oss-20b"
+                groq_model = "openai/gpt-oss-20b"
+                time.sleep(1.0)
+                continue
+
+            # 2. Handle Minute Rate Limits (TPM / 429)
+            elif "429" in err_str or "rate_limit" in err_str.lower():
                 wait_m = re.search(r"try again in ([0-9.]+)s", err_str)
                 wait_sec = float(wait_m.group(1)) + 1.5 if wait_m else 10.0
                 logger.warning(f"Groq 429 Rate Limit encountered. Pausing {wait_sec:.1f}s...")
                 time.sleep(wait_sec)
-                # If on 120b and hit TPM limit, switch to gpt-oss-20b fallback
                 if groq_model == "openai/gpt-oss-120b" and attempt >= 2:
                     logger.info("Switching to compatible fallback model openai/gpt-oss-20b due to rate limit.")
+                    _ACTIVE_MODEL_OVERRIDE = "openai/gpt-oss-20b"
                     groq_model = "openai/gpt-oss-20b"
             else:
                 logger.warning(f"LLM Call attempt {attempt} failed ({e}) in {latency:.2f}s. Retrying...")

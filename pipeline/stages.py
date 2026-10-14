@@ -277,6 +277,8 @@ def extract_fields(input_data: ExtractFieldsInput) -> ExtractFieldsOutput:
                 source_filename=None,
                 source_chunk_text=f"Extraction error: {e}"
             )
+        import time
+        time.sleep(0.15)
 
     return ExtractFieldsOutput(fields=field_results)
 
