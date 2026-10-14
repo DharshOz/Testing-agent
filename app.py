@@ -131,7 +131,7 @@ st.sidebar.caption("Document Verification & Ticket Workflow")
 
 page = st.sidebar.radio(
     "Navigation",
-    ["Raise Ticket", "My Tickets", "Officials View"],
+    ["Raise Ticket", "My Tickets", "Officials View", "🧪 Testing Agent Dashboard"],
     index=0
 )
 
@@ -462,3 +462,153 @@ elif page == "Officials View":
         st.write(f"Total tickets in database: {len(officials_tickets)}")
         for t in officials_tickets:
             st.markdown(f"- **{t.id}** ({t.category}) - Status: `{t.status}`, Verdict: `{t.verdict}`")
+
+
+# =========================================================================
+# PAGE 4: TESTING AGENT DASHBOARD
+# =========================================================================
+elif page == "🧪 Testing Agent Dashboard":
+    from tests_agent.graph import get_stages_in_order, downstream_of, upstream_of, get_stage_info
+    from tests_agent.runner import TestRunner
+    import pandas as pd
+    import subprocess
+    import time
+
+    runner = TestRunner()
+
+    st.markdown('<div class="main-header">🧪 Autonomous Testing Agent Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Live Multi-Stage Pipeline Health, Issue Sheet Management, Autonomous Prompt Fixing, and GitHub Actions CI/CD Telemetry</div>', unsafe_allow_html=True)
+
+    # Top Metric Banner
+    col_m1, col_m2, col_m3, col_m4, col_m5 = st.columns(5)
+    all_cases = [p.name for p in runner.cases_dir.iterdir() if p.is_dir()] if runner.cases_dir.exists() else []
+    tune_cases = [c for c in all_cases if runner.load_case_meta(c).get("split", "tune") != "heldout"]
+    heldout_cases = [c for c in all_cases if runner.load_case_meta(c).get("split") == "heldout"]
+
+    issues_file = Path("issues/issues.csv")
+    issues_df = pd.read_csv(issues_file) if issues_file.is_file() else pd.DataFrame()
+    open_cnt = len(issues_df[issues_df["status"] == "open"]) if not issues_df.empty else 0
+    fixed_cnt = len(issues_df[issues_df["status"] == "fixed"]) if not issues_df.empty else 0
+
+    with col_m1:
+        st.metric("Total Test Cases", len(all_cases))
+    with col_m2:
+        st.metric("Tune Cases", len(tune_cases))
+    with col_m3:
+        st.metric("Held-Out Cases", len(heldout_cases))
+    with col_m4:
+        st.metric("Open Issues", open_cnt, delta=-open_cnt if open_cnt > 0 else 0, delta_color="inverse")
+    with col_m5:
+        st.metric("Fixed Issues", fixed_cnt, delta=fixed_cnt)
+
+    st.divider()
+
+    t_stages, t_issues, t_runner, t_ci = st.tabs([
+        "📊 Pipeline Architecture & Stages",
+        "📝 Issue Sheet & Auto-Fix Control Center",
+        "🔬 Stage Diagnostic Runner",
+        "🚀 GitHub Actions & CI/CD Telemetry"
+    ])
+
+    with t_stages:
+        st.subheader("Multi-Stage Pipeline Health & Topology")
+        for idx, stg_name in enumerate(get_stages_in_order()):
+            info = get_stage_info(stg_name)
+            col_a, col_b, col_c = st.columns([2, 2, 1])
+            with col_a:
+                st.markdown(f"**Stage {idx+1}: `{stg_name}`**")
+                st.caption(f"Input: `{info['input_model'].__name__}` | Output: `{info['output_model'].__name__}`")
+            with col_b:
+                p_file = info.get("prompt_file") or "None (Deterministic Code)"
+                st.caption(f"Prompt: `{p_file}`")
+                st.caption(f"Downstream: `{downstream_of(stg_name) or 'None'}`")
+            with col_c:
+                st.markdown('<span class="badge-valid">HEALTHY</span>', unsafe_allow_html=True)
+            st.divider()
+
+    with t_issues:
+        st.subheader("Tester Issue Sheet (Failure-to-Test Flywheel)")
+        if not issues_df.empty:
+            st.dataframe(issues_df, use_container_width=True)
+            col_b1, col_b2, col_b3 = st.columns([2, 1, 1])
+            with col_b1:
+                st.markdown("#### ⚡ Trigger Autonomous Fix Agent Loop")
+                st.caption("Pulls open issues, proposes generic prompt fixes via Groq, verifies against all cases, and loops until resolved.")
+                max_att = st.slider("Max Attempts per Issue", 1, 6, 4)
+                if st.button("🚀 Run Autonomous Fix Agent", type="primary", use_container_width=True):
+                    with st.spinner("Executing Fix Agent with Groq..."):
+                        proc = subprocess.Popen([sys.executable, "tests_agent/fix_agent.py", "--max-attempts", str(max_att)], stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+                        lines = []
+                        box = st.empty()
+                        while True:
+                            line = proc.stdout.readline()
+                            if not line and proc.poll() is not None:
+                                break
+                            if line:
+                                lines.append(line)
+                                box.code("".join(lines[-15:]))
+                        proc.wait()
+                        st.success("Fix Agent run finished!")
+                        time.sleep(1)
+                        st.rerun()
+
+            with col_b2:
+                st.markdown("#### 📥 Export Formats")
+                csv_bytes = issues_df.to_csv(index=False).encode('utf-8')
+                st.download_button("Download issues.csv", csv_bytes, "issues.csv", "text/csv", use_container_width=True)
+                if Path("issues/issues.xlsx").is_file():
+                    with open("issues/issues.xlsx", "rb") as xf:
+                        st.download_button("Download issues.xlsx", xf.read(), "issues.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", use_container_width=True)
+
+            with col_b3:
+                st.markdown("#### 🔄 Refresh")
+                if st.button("Reload Issues", use_container_width=True):
+                    st.rerun()
+
+    with t_runner:
+        st.subheader("Live Stage Diagnostic Runner")
+        c_c1, c_c2, c_c3 = st.columns(3)
+        with c_c1:
+            s_case = st.selectbox("Select Test Case", all_cases, index=0, key="diag_case")
+        with c_c2:
+            s_stage = st.selectbox("Select Stage", get_stages_in_order(), index=3, key="diag_stage")
+        with c_c3:
+            s_mode = st.radio("Test Mode", ["Isolated Stage Test (Frozen)", "Propagation Test (Live Chain)"], key="diag_mode")
+
+        if st.button("▶️ Execute Diagnostic", type="primary", key="diag_btn"):
+            with st.spinner(f"Running {s_stage} on {s_case}..."):
+                try:
+                    if "Isolated" in s_mode:
+                        out, assertions = runner.run_stage_test(s_case, s_stage)
+                        p_cnt = sum(1 for a in assertions if a.get("passed"))
+                        st.write(f"**Passed: {p_cnt}/{len(assertions)} assertions**")
+                        st.table(pd.DataFrame([{"Assertion": a["name"], "Status": "PASSED" if a["passed"] else "FAILED", "Reason": a["reason"], "Evidence": a["evidence"]} for a in assertions]))
+                        with st.expander("Raw Output JSON"):
+                            st.json(out.model_dump() if hasattr(out, "model_dump") else out)
+                    else:
+                        prop_map = runner.run_propagation_test(s_case, s_stage)
+                        for d_name, (_, d_ass) in prop_map.items():
+                            with st.expander(f"Downstream: {d_name} ({sum(1 for a in d_ass if a['passed'])}/{len(d_ass)} passed)", expanded=True):
+                                st.table(pd.DataFrame([{"Assertion": a["name"], "Status": "PASSED" if a["passed"] else "FAILED", "Reason": a["reason"]} for a in d_ass]))
+                except Exception as ex:
+                    st.error(f"Error: {ex}")
+
+    with t_ci:
+        st.subheader("GitHub Actions CI/CD Telemetry & PR Automation")
+        col_x1, col_x2 = st.columns([1, 1], gap="large")
+        with col_x1:
+            st.markdown("##### 1. `regression.yml`")
+            st.caption("Runs dependency-aware tests on PRs touching prompts, code, or config. Posts table comment and fails on regressions.")
+            st.markdown("##### 2. `agent_fix.yml`")
+            st.caption("Triggers on changes to issues/issues.csv. Runs fix_agent.py and opens automated PR from agent/prompt-fixes-<id> for human review.")
+        with col_x2:
+            st.markdown("**Remote Repo:** [https://github.com/DharshOz/Testing-agent.git](https://github.com/DharshOz/Testing-agent.git)")
+            st.markdown("**Branch:** `main`")
+            if st.button("Trigger Local Regression Suite", type="primary", use_container_width=True):
+                with st.spinner("Running test suite..."):
+                    res = subprocess.run([sys.executable, "run_tests.py", "--all"], capture_output=True, text=True)
+                    if res.returncode == 0:
+                        st.success("All regression checks passed!")
+                    else:
+                        st.error("Regressions detected. See test_report.md")
+

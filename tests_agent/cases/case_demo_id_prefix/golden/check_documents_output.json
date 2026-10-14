@@ -1,0 +1,50 @@
+{
+  "category": "grant_request",
+  "required_types": [
+    {
+      "doc_type": "application_form",
+      "name": "Formal Application Form",
+      "present": true,
+      "matched_filename": "application_form.pdf",
+      "classification_method": "rule_keyword",
+      "confidence": 0.75
+    },
+    {
+      "doc_type": "identity_proof",
+      "name": "Identity Proof",
+      "present": true,
+      "matched_filename": "aadhaar_identity_proof.txt",
+      "classification_method": "rule_keyword",
+      "confidence": 0.95
+    },
+    {
+      "doc_type": "address_or_supporting_proof",
+      "name": "Address or Supporting Proof",
+      "present": true,
+      "matched_filename": "address_proof_utility_bill.docx",
+      "classification_method": "rule_keyword",
+      "confidence": 0.85
+    },
+    {
+      "doc_type": "sanction_document",
+      "name": "Sanction / Department Approval Document",
+      "present": true,
+      "matched_filename": "sanction_order_approval.pdf",
+      "classification_method": "rule_keyword",
+      "confidence": 0.95
+    },
+    {
+      "doc_type": "community_consent_document",
+      "name": "Community Consent Document",
+      "present": true,
+      "matched_filename": "community_consent_resolution.docx",
+      "classification_method": "rule_keyword",
+      "confidence": 0.99
+    }
+  ],
+  "missing_types": [],
+  "all_required_present": true,
+  "empty_files": [],
+  "duplicate_files": [],
+  "unsupported_files": []
+}

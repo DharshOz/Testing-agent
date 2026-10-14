@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "raw_text": "CIVIC GRANT APPLICATION - DEMONSTRATION ISSUE\nApplicant Name: Aarav Sharma\nApplicant ID: AADHAAR-8921-4321-9988\nContact: +91-9876543210, aarav.sharma@example.gov.in\nDate of Submission: 2026-03-15\nDepartment: Rural Water Supply and Sanitation\nIssue Title: Solar Water Pump Infrastructure Project\nAmount Requested: INR 2,50,000\nSupporting References: SANCTION-ORD-2026-449\nProject Description: Solar water pump project demonstration ticket.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "raw_text": "GOVERNMENT OF INDIA - UNIQUE IDENTIFICATION AUTHORITY\nIDENTITY PROOF CARD (AADHAAR)\nName: Aarav Sharma\nFather's Name: R. K. Sharma\nDOB: 1985-06-12\nGender: Male\nAadhaar Number: 8921-4321-9988\nAddress: House No. 42, Ward 4, Greenfield Village, District North\nStatus: ACTIVE VERIFIED CITIZEN",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "raw_text": "STATE ELECTRICITY DISTRIBUTION UTILITY\n\nConsumer Name: Aarav Sharma\n\nConsumer ID: ELEC-99210-W4\n\nService Address: House No. 42, Ward 4, Greenfield Village\n\nVerification: Verified residential utility bill.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "raw_text": "DEPARTMENT PRELIMINARY SANCTION ORDER\nSanction Order Reference: SANCTION-ORD-2026-449\nDate: 2026-03-01\nGrant Beneficiary: Aarav Sharma\nApproved Scheme: Solar Water Pump Infrastructure Project\nSanctioned Ceiling Amount: INR 2,50,000",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "raw_text": "GRAM SABHA COMMUNITY CONSENT RESOLUTION\n\nResolution No: GS-RES-2026-018\n\nMeeting Date: 2026-03-10\n\nSubject: Community Consent for Solar Water Pump\n\nConsent Declaration: We hereby confirm collective community consent.\n\nSignatures and Approvals:\n\n1. Sunita Devi - Signed\n\n2. Manoj Kumar Patel - Signed\n\nAttested by Panchayat Secretary on 2026-03-10.",
+      "page_count": 1,
+      "extraction_warnings": []
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "ticket_id": "TICK-CASE_DEMO_ID_PREFIX",
+  "docx_path": "tests_agent\\cases\\case_demo_id_prefix\\golden_report_case_demo_id_prefix.docx",
+  "structured_sections": {
+    "title": "OFFICIAL VERIFICATION REPORT: Solar Water Pump Infrastructure Project",
+    "executive_summary": "The grant request submitted by Mr. Aarav Sharma (Aadhaar No. 8921-4321-9988) on 2026-03-15 seeks INR 2,50,000 for the implementation of a Solar Water Pump Infrastructure Project under the Rural Water Supply and Sanitation department. All mandatory documentation\u2014including the formal application, identity proof, address proof, sanction order, and community consent resolution\u2014has been identified, classified, and verified as present and authentic. The automated audit confirms that the applicant's details are consistent across all documents, the sanction reference SANCTION-ORD-2026-449 aligns with the requested amount, and the community consent is formally signed and dated.\n\nThe validation engine performed a comprehensive set of checks: completeness of required fields, name and identification consistency, document formality, sanction alignment, and chronological plausibility. Each check returned a positive result with clear evidentiary excerpts, indicating no contradictions or gaps. Consequently, the ticket is deemed valid and ready for administrative approval.",
+    "applicant_details": {
+      "applicant_name": "Aarav Sharma",
+      "applicant_id": "AADHAAR-8921-4321-9988",
+      "contact": "+91-9876543210, aarav.sharma@example.gov.in",
+      "department": "Rural Water Supply and Sanitation",
+      "date": "2026-03-15"
+    },
+    "issue_details": {
+      "title": "Solar Water Pump Infrastructure Project",
+      "description": "Solar water pump project demonstration ticket.",
+      "amount_requested": "INR 2,50,000"
+    },
+    "supporting_documents_table": [
+      {
+        "doc_type": "application_form",
+        "filename": "application_form.pdf",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "identity_proof",
+        "filename": "aadhaar_identity_proof.txt",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "address_or_supporting_proof",
+        "filename": "address_proof_utility_bill.docx",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "sanction_document",
+        "filename": "sanction_order_approval.pdf",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "community_consent_document",
+        "filename": "community_consent_resolution.docx",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      }
+    ],
+    "validation_findings": [
+      {
+        "audit": "Required Fields Completeness",
+        "passed": true,
+        "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf"
+      },
+      {
+        "audit": "Applicant Name Consistency Across Documents",
+        "passed": true,
+        "evidence": "Application, Aadhaar proof, and sanction order all list 'Aarav Sharma'"
+      },
+      {
+        "audit": "Identification Number Verification",
+        "passed": true,
+        "evidence": "Application ID 'AADHAAR-8921-4321-9988' matches Aadhaar number '8921-4321-9988' in identity proof"
+      },
+      {
+        "audit": "Community Consent Document Formality",
+        "passed": true,
+        "evidence": "Document includes resolution number, meeting date 2026-03-10, clear consent statement, and signatures of two residents plus Panchayat Secretary attestation"
+      },
+      {
+        "audit": "Sanction Document Alignment",
+        "passed": true,
+        "evidence": "Sanction order reference SANCTION-ORD-2026-449, project title, and amount INR 2,50,000 match the application"
+      },
+      {
+        "audit": "Contradiction & Plausibility Check",
+        "passed": true,
+        "evidence": "Chronology: sanction (2026-03-01) \u2192 community consent (2026-03-10) \u2192 application submission (2026-03-15); no contradictory statements"
+      }
+    ],
+    "recommendation": "RECOMMENDED FOR IMMEDIATE DISBURSAL"
+  }
+}

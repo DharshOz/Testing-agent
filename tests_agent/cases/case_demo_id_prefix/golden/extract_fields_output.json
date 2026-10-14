@@ -1,0 +1,58 @@
+{
+  "fields": {
+    "applicant_name": {
+      "value": "Aarav Sharma",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant Name: Aarav Sharma"
+    },
+    "applicant_id": {
+      "value": "AADHAAR-8921-4321-9988",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant ID: AADHAAR-8921-4321-9988"
+    },
+    "contact": {
+      "value": "+91-9876543210, aarav.sharma@example.gov.in",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Contact: +91-9876543210, aarav.sharma@example.gov.in"
+    },
+    "date": {
+      "value": "2026-03-15",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Date of Submission: 2026-03-15"
+    },
+    "issue_title": {
+      "value": "Solar Water Pump Infrastructure Project",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Issue Title: Solar Water Pump Infrastructure Project"
+    },
+    "issue_description": {
+      "value": "Solar water pump project demonstration ticket.",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Project Description: Solar water pump project demonstration ticket."
+    },
+    "amount_requested": {
+      "value": "INR 2,50,000",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Amount Requested: INR 2,50,000"
+    },
+    "department": {
+      "value": "Rural Water Supply and Sanitation",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Department: Rural Water Supply and Sanitation"
+    },
+    "supporting_references": {
+      "value": "SANCTION-ORD-2026-449",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Supporting References: SANCTION-ORD-2026-449"
+    }
+  }
+}

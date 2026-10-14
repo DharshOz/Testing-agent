@@ -1,0 +1,42 @@
+{
+  "verdict": "valid",
+  "summary": "All required fields are present, applicant name and Aadhaar number are consistent across documents, sanction details align with the request, community consent is formal and signed, and the timeline is coherent.",
+  "checks": [
+    {
+      "name": "Required Fields Completeness",
+      "passed": true,
+      "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf",
+      "reason": "All essential fields successfully identified"
+    },
+    {
+      "name": "Applicant Name Consistency Across Documents",
+      "passed": true,
+      "evidence": "Application, Aadhaar proof, and sanction order all list 'Aarav Sharma'",
+      "reason": "Name matches across all relevant documents"
+    },
+    {
+      "name": "Identification Number Verification",
+      "passed": true,
+      "evidence": "Application ID 'AADHAAR-8921-4321-9988' matches Aadhaar number '8921-4321-9988' in identity proof",
+      "reason": "Aadhaar number is consistent"
+    },
+    {
+      "name": "Community Consent Document Formality",
+      "passed": true,
+      "evidence": "Document includes resolution number, meeting date 2026-03-10, clear consent statement, and signatures of two residents plus Panchayat Secretary attestation",
+      "reason": "Meets civic formality requirements"
+    },
+    {
+      "name": "Sanction Document Alignment",
+      "passed": true,
+      "evidence": "Sanction order reference SANCTION-ORD-2026-449, project title, and amount INR 2,50,000 match the application",
+      "reason": "Project references and amount align"
+    },
+    {
+      "name": "Contradiction & Plausibility Check",
+      "passed": true,
+      "evidence": "Chronology: sanction (2026-03-01) \u2192 community consent (2026-03-10) \u2192 application submission (2026-03-15); no contradictory statements",
+      "reason": "Timeline is logical and no inconsistencies found"
+    }
+  ]
+}
