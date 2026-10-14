@@ -1,0 +1,51 @@
+name: Autonomous Fix Agent Workflow
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'issues/issues.csv'
+
+jobs:
+  run-fix-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Autonomous Fix Agent
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: "openai/gpt-oss-120b"
+          MAX_TOKENS_BUDGET: "100000"
+        run: |
+          python tests_agent/fix_agent.py --max-attempts 4
+
+      - name: Create Pull Request with Proposed Fixes
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "fix(prompts): autonomous prompt corrections from issues sheet"
+          branch: agent/prompt-fixes-${{ github.run_id }}
+          title: "🤖 Agent: Proposed Prompt Corrections for Logged Issues"
+          body: |
+            ## Autonomous Fix Agent Report
+
+            The fix agent processed pending issues from `issues/issues.csv`.
+            Prompt modifications were tested against the full verification cascade (issue case, all tune cases, downstream propagation, and held-out cases).
+
+            **Please review diffs carefully before merging. Prompt changes require human approval.**
+          labels: "automated-pr, prompt-fix"

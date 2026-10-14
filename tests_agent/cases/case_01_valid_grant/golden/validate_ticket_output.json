@@ -1,0 +1,42 @@
+{
+  "verdict": "valid",
+  "summary": "All required fields are present, applicant details and Aadhaar number match across documents, sanction order aligns with request, community consent is formal, and no contradictions or implausible dates were found.",
+  "checks": [
+    {
+      "name": "Required Fields Completeness",
+      "passed": true,
+      "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf",
+      "reason": "All essential fields successfully identified"
+    },
+    {
+      "name": "Applicant Name Consistency Across Documents",
+      "passed": true,
+      "evidence": "Name 'Aarav Sharma' appears identically in application_form.pdf, aadhaar_identity_proof.txt, and sanction_order_approval.pdf",
+      "reason": "Name matches across all documents that reference the applicant"
+    },
+    {
+      "name": "Identification Number Verification",
+      "passed": true,
+      "evidence": "Aadhaar number AADHAAR-8921-4321-9988 is identical in application_form.pdf and aadhaar_identity_proof.txt",
+      "reason": "ID number match confirmed"
+    },
+    {
+      "name": "Community Consent Document Formality",
+      "passed": true,
+      "evidence": "community_consent_resolution.docx includes resolution number, meeting date 2026-03-10, clear consent statement, list of resident names with signatures, and attestation by Panchayat Secretary",
+      "reason": "Meets civic formality requirements"
+    },
+    {
+      "name": "Sanction Document Alignment",
+      "passed": true,
+      "evidence": "Sanction order reference SANCTION-ORD-2026-449, project title, and amount INR 2,50,000 match the application details",
+      "reason": "Project references and financial figures align"
+    },
+    {
+      "name": "Contradiction & Plausibility Check",
+      "passed": true,
+      "evidence": "Chronology: sanction (2026-03-01) \u2192 community consent (2026-03-10) \u2192 application submission (2026-03-15) is logical; no impossible dates or contradictory statements detected",
+      "reason": "No conflicting information or implausible timelines found"
+    }
+  ]
+}

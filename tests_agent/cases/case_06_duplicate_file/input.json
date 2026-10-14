@@ -1,0 +1,36 @@
+{
+  "ticket_id": "TICK-CASE_06_DUPLICATE_FILE",
+  "category": "grant_request",
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "path": "files/application_form.pdf",
+      "sha256": "b6bff74be7fcff561bf672d6a292058f4b4c4a6d6b32b0c7a055a285f8349d30"
+    },
+    {
+      "filename": "application_form_copy.pdf",
+      "path": "files/application_form_copy.pdf",
+      "sha256": "b6bff74be7fcff561bf672d6a292058f4b4c4a6d6b32b0c7a055a285f8349d30"
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "path": "files/aadhaar_identity_proof.txt",
+      "sha256": "e979f0a579b275f82b615eeb33eaaadf4316166d911915e42ddc5babf82653ea"
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "path": "files/address_proof_utility_bill.docx",
+      "sha256": "be7a18aadcfc30fd86c667d31c9524ad42365eb2e17773a52f838fff7486dc25"
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "path": "files/sanction_order_approval.pdf",
+      "sha256": "15c80867ecf5abe61e88a101f8b90f9217b866a29cca5a210d32ba2bdc2ad2ca"
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "path": "files/community_consent_resolution.docx",
+      "sha256": "5a2607c9841486270b59e222c03055f7e64e464a4ce20d2e61a0c53a69f5d828"
+    }
+  ]
+}

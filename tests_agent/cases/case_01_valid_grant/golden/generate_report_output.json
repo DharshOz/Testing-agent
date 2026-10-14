@@ -1,0 +1,85 @@
+{
+  "ticket_id": "TICK-CASE_01_VALID_GRANT",
+  "docx_path": "tests_agent\\cases\\case_01_valid_grant\\golden_report_case_01_valid_grant.docx",
+  "structured_sections": {
+    "title": "OFFICIAL VERIFICATION REPORT: Installation of Community Solar Water Pump in Ward 4",
+    "executive_summary": "The grant request submitted by Mr. Aarav Sharma (AADHAAR-8921-4321-9988) on 2026-03-15 seeks INR 2,50,000 for the installation of a community solar water pump in Ward 4, under the Rural Water Supply and Sanitation department. All mandatory documentation\u2014including the formal application, Aadhaar identity proof, address proof, sanction order, and community consent resolution\u2014has been provided and positively identified by the automated audit system. The audit confirms complete field coverage, consistent applicant identifiers across documents, and alignment of the sanction order with the requested amount and project scope.",
+    "applicant_details": {
+      "applicant_name": "Aarav Sharma",
+      "applicant_id": "AADHAAR-8921-4321-9988",
+      "contact": "+91-9876543210, aarav.sharma@example.gov.in",
+      "department": "Rural Water Supply and Sanitation",
+      "date": "2026-03-15"
+    },
+    "issue_details": {
+      "title": "Installation of Community Solar Water Pump in Ward 4",
+      "description": "Infrastructure grant for drilling and installing community solar water pump.",
+      "amount_requested": "INR 2,50,000"
+    },
+    "supporting_documents_table": [
+      {
+        "doc_type": "application_form",
+        "filename": "application_form.pdf",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "identity_proof",
+        "filename": "aadhaar_identity_proof.txt",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "address_or_supporting_proof",
+        "filename": "address_proof_utility_bill.docx",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "sanction_document",
+        "filename": "sanction_order_approval.pdf",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      },
+      {
+        "doc_type": "community_consent_document",
+        "filename": "community_consent_resolution.docx",
+        "status": "Verified / Present",
+        "classification_method": "rule_keyword"
+      }
+    ],
+    "validation_findings": [
+      {
+        "audit": "Required Fields Completeness",
+        "passed": true,
+        "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf"
+      },
+      {
+        "audit": "Applicant Name Consistency Across Documents",
+        "passed": true,
+        "evidence": "Name 'Aarav Sharma' appears identically in application_form.pdf, aadhaar_identity_proof.txt, and sanction_order_approval.pdf"
+      },
+      {
+        "audit": "Identification Number Verification",
+        "passed": true,
+        "evidence": "Aadhaar number AADHAAR-8921-4321-9988 is identical in application_form.pdf and aadhaar_identity_proof.txt"
+      },
+      {
+        "audit": "Community Consent Document Formality",
+        "passed": true,
+        "evidence": "community_consent_resolution.docx includes resolution number, meeting date 2026-03-10, clear consent statement, list of resident names with signatures, and attestation by Panchayat Secretary"
+      },
+      {
+        "audit": "Sanction Document Alignment",
+        "passed": true,
+        "evidence": "Sanction order reference SANCTION-ORD-2026-449, project title, and amount INR 2,50,000 match the application details"
+      },
+      {
+        "audit": "Contradiction & Plausibility Check",
+        "passed": true,
+        "evidence": "Chronology: sanction (2026-03-01) \u2192 community consent (2026-03-10) \u2192 application submission (2026-03-15) is logical; no impossible dates or contradictory statements detected"
+      }
+    ],
+    "recommendation": "RECOMMENDED FOR IMMEDIATE DISBURSAL"
+  }
+}

@@ -1,0 +1,21 @@
+paths:
+  cases_dir: "tests_agent/cases"
+  issues_csv: "issues/issues.csv"
+  baseline_file: "tests_agent/baseline.json"
+  runs_dir: "tests_agent/runs"
+  prompts_dir: "prompts"
+  pipeline_dir: "pipeline"
+  config_dir: "config"
+  cache_dir: ".tests_agent_cache"
+
+thresholds:
+  max_attempts: 4
+  max_tokens_budget: 100000
+  judge_agreement_required: true
+  fuzzy_match_threshold: 0.65
+
+llm:
+  provider: "groq"
+  model: "openai/gpt-oss-120b"
+  fallback_model: "llama-3.3-70b-versatile"
+  temperature: 0.0

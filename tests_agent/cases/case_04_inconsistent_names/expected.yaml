@@ -1,0 +1,5 @@
+check_documents:
+  all_required_present: true
+  missing_types: []
+validate_ticket:
+  verdict: invalid

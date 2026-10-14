@@ -1,0 +1,4 @@
+case_id: case_08_hallucination_trap
+data_type: hallucination_trap
+must_pass: false
+split: heldout

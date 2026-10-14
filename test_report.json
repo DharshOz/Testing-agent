@@ -1,0 +1,290 @@
+{
+  "summary": {
+    "regressions_count": 0
+  },
+  "regressions": [],
+  "results": {
+    "case_01_valid_grant": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 5 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
+      "extract_fields": [
+        {
+          "name": "Schema Check [extract_fields]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractFieldsOutput contract",
+          "evidence": "Fields validated against ExtractFieldsOutput"
+        },
+        {
+          "name": "Confidence Range Check (applicant_name)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (applicant_name)",
+          "passed": true,
+          "reason": "Extracted value 'Aarav Sharma' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Applicant Name: Aarav Sharma"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (applicant_name)",
+          "passed": true,
+          "reason": "Extracted value 'Aarav Sharma' must exist in raw document text",
+          "evidence": "Value: 'Aarav Sharma'"
+        },
+        {
+          "name": "Confidence Range Check (applicant_id)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (applicant_id)",
+          "passed": true,
+          "reason": "Extracted value 'AADHAAR-8921-4321-9988' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Applicant ID: AADHAAR-8921-4321-9988"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (applicant_id)",
+          "passed": true,
+          "reason": "Extracted value 'AADHAAR-8921-4321-9988' must exist in raw document text",
+          "evidence": "Value: 'AADHAAR-8921-4321-9988'"
+        },
+        {
+          "name": "Confidence Range Check (contact)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (contact)",
+          "passed": true,
+          "reason": "Extracted value '+91-9876543210, aarav.sharma@example.gov.in' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Contact: +91-9876543210, aarav.sharma@example.gov.in"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (contact)",
+          "passed": true,
+          "reason": "Extracted value '+91-9876543210, aarav.sharma@example.gov.in' must exist in raw document text",
+          "evidence": "Value: '+91-9876543210, aarav.sharma@example.gov.in'"
+        },
+        {
+          "name": "Confidence Range Check (date)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (date)",
+          "passed": true,
+          "reason": "Extracted value '2026-03-15' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Date of Submission: 2026-03-15"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (date)",
+          "passed": true,
+          "reason": "Extracted value '2026-03-15' must exist in raw document text",
+          "evidence": "Value: '2026-03-15'"
+        },
+        {
+          "name": "Confidence Range Check (issue_title)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (issue_title)",
+          "passed": true,
+          "reason": "Extracted value 'Installation of Community Solar Water Pump in Ward 4' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Issue Title: Installation of Community Solar Water Pump in Ward 4"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (issue_title)",
+          "passed": true,
+          "reason": "Extracted value 'Installation of Community Solar Water Pump in Ward 4' must exist in raw document text",
+          "evidence": "Value: 'Installation of Community Solar Water Pump in Ward 4'"
+        },
+        {
+          "name": "Confidence Range Check (issue_description)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (issue_description)",
+          "passed": true,
+          "reason": "Extracted value 'Infrastructure grant for drilling and installing community solar water pump.' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Project Description: Infrastructure grant for drilling and installing community solar water pump."
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (issue_description)",
+          "passed": true,
+          "reason": "Extracted value 'Infrastructure grant for drilling and installing community solar water pump.' must exist in raw document text",
+          "evidence": "Value: 'Infrastructure grant for drilling and installing community solar water pump.'"
+        },
+        {
+          "name": "Confidence Range Check (amount_requested)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (amount_requested)",
+          "passed": true,
+          "reason": "Extracted value 'INR 2,50,000' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Amount Requested: INR 2,50,000"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (amount_requested)",
+          "passed": true,
+          "reason": "Extracted value 'INR 2,50,000' must exist in raw document text",
+          "evidence": "Value: 'INR 2,50,000'"
+        },
+        {
+          "name": "Confidence Range Check (department)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (department)",
+          "passed": true,
+          "reason": "Extracted value 'Rural Water Supply and Sanitation' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Department: Rural Water Supply and Sanitation"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (department)",
+          "passed": true,
+          "reason": "Extracted value 'Rural Water Supply and Sanitation' must exist in raw document text",
+          "evidence": "Value: 'Rural Water Supply and Sanitation'"
+        },
+        {
+          "name": "Confidence Range Check (supporting_references)",
+          "passed": true,
+          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 1.0"
+        },
+        {
+          "name": "Anti-Hallucination Chunk Check (supporting_references)",
+          "passed": true,
+          "reason": "Extracted value 'SANCTION-ORD-2026-449' must be grounded in source_chunk_text",
+          "evidence": "Chunk snippet: Supporting References: SANCTION-ORD-2026-449"
+        },
+        {
+          "name": "Anti-Hallucination Raw Document Check (supporting_references)",
+          "passed": true,
+          "reason": "Extracted value 'SANCTION-ORD-2026-449' must exist in raw document text",
+          "evidence": "Value: 'SANCTION-ORD-2026-449'"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
+        }
+      ],
+      "validate_ticket": [
+        {
+          "name": "Schema Check [validate_ticket]",
+          "passed": true,
+          "reason": "Output strictly adheres to ValidateTicketOutput contract",
+          "evidence": "Fields validated against ValidateTicketOutput"
+        },
+        {
+          "name": "Validation Verdict Match",
+          "passed": true,
+          "reason": "Expected verdict 'valid', got 'valid'",
+          "evidence": "Summary: All required fields are present and consistent; applicant name and Aadhaar match across documents; dates are chronologically coherent; sanction order aligns with request; community consent is formal; no contradictions detected."
+        },
+        {
+          "name": "Validation Checks Evidence Completeness",
+          "passed": true,
+          "reason": "All audit checks must provide non-empty evidence and rationale",
+          "evidence": "Checks count: 6"
+        }
+      ],
+      "generate_report": [
+        {
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
+        {
+          "name": "Generated DOCX Readability",
+          "passed": true,
+          "reason": "Report docx file must exist and open with python-docx",
+          "evidence": "Path: ./reports/test_report_case_01_valid_grant_generate_report.docx, Exists: True, Openable: True"
+        },
+        {
+          "name": "Required Document Headings Presence",
+          "passed": true,
+          "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details', 'Civic Request Details']",
+          "evidence": "Missing: []"
+        },
+        {
+          "name": "Applicant Name Presence in Report",
+          "passed": true,
+          "reason": "Applicant name 'Aarav Sharma' must appear in the generated report",
+          "evidence": "Found in document text: True"
+        }
+      ]
+    }
+  }
+}

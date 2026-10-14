@@ -1,0 +1,27 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.pytest_cache/
+.pytest_cache/
+
+# Databases & Local Storage
+tickets.db
+qdrant_data/
+.tests_agent_cache/
+
+# Uploads & Reports
+uploads/
+reports/
+tests_agent/runs/
+
+# Environment Variables
+.env
+
+# Scratch
+scratch_cases_tmp/

@@ -1,0 +1,36 @@
+{
+  "ticket_id": "TICK-CASE_06_DUPLICATE_FILE",
+  "docx_path": "tests_agent\\cases\\case_06_duplicate_file\\golden_report_case_06_duplicate_file.docx",
+  "structured_sections": {
+    "title": "OFFICIAL VERIFICATION REPORT",
+    "executive_summary": "Automated verification completed successfully.",
+    "applicant_details": {
+      "applicant_name": "Applicant",
+      "applicant_id": "ID-12345",
+      "contact": "555-0199",
+      "department": "Public Works",
+      "date": "2026-10-14"
+    },
+    "issue_details": {
+      "title": "Community Project Request",
+      "description": "Project implementation request.",
+      "amount_requested": "50000"
+    },
+    "supporting_documents_table": [
+      {
+        "doc_type": "application_form",
+        "filename": "app.txt",
+        "status": "Verified",
+        "classification_method": "keyword"
+      }
+    ],
+    "validation_findings": [
+      {
+        "audit": "Consistency Check",
+        "passed": true,
+        "evidence": "Names match across docs"
+      }
+    ],
+    "recommendation": "APPROVED FOR PROCESSING"
+  }
+}

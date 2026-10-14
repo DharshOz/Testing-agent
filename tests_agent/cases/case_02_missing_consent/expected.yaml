@@ -1,0 +1,6 @@
+check_documents:
+  all_required_present: false
+  missing_types:
+  - community_consent_document
+validate_ticket:
+  verdict: invalid

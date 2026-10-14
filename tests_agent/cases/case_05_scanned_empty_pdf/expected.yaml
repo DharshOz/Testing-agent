@@ -1,0 +1,6 @@
+check_documents:
+  empty_files:
+  - empty_scanned_id.pdf
+extract_text:
+  allow_empty_files:
+  - empty_scanned_id.pdf

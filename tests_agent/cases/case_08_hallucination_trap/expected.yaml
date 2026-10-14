@@ -1,0 +1,4 @@
+extract_fields:
+  absent_fields:
+  - amount_requested
+  - department

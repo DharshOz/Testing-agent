@@ -1,0 +1,4 @@
+case_id: case_06_duplicate_file
+data_type: duplicate_upload
+must_pass: true
+split: tune

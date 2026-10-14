@@ -1,0 +1,61 @@
+name: Regression Test Workflow
+
+on:
+  pull_request:
+    paths:
+      - 'prompts/**'
+      - 'pipeline/**'
+      - 'config/**'
+  workflow_dispatch:
+
+jobs:
+  regression-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Dependency-Aware Tests
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: "openai/gpt-oss-120b"
+        run: |
+          python run_tests.py --mode changed --output-md test_report.md --output-json test_report.json
+
+      - name: Post Test Report to PR Comment
+        if: always() && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            if (fs.existsSync('test_report.md')) {
+              const body = fs.readFileSync('test_report.md', 'utf8');
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+              });
+            }
+
+      - name: Upload Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: regression-test-results
+          path: |
+            test_report.md
+            test_report.json

@@ -1,0 +1,12 @@
+{
+  "verdict": "invalid",
+  "summary": "Ticket rejected automatically: Missing mandatory documents: Community Consent Document.",
+  "checks": [
+    {
+      "name": "Mandatory Document Completeness",
+      "passed": false,
+      "evidence": "Missing required doc types: ['community_consent_document']",
+      "reason": "Required documents are missing from the submission bundle. Process halted before LLM validation."
+    }
+  ]
+}

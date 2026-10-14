@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "raw_text": "CIVIC GRANT APPLICATION FORM\nApplicant Name: Aarav Sharma\nApplicant ID: AADHAAR-8921-4321-9988\nContact: +91-9876543210, aarav.sharma@example.gov.in\nDate of Submission: 2026-03-15\nDepartment: Rural Water Supply and Sanitation\nIssue Title: Installation of Community Solar Water Pump in Ward 4\nAmount Requested: INR 2,50,000\nSupporting References: SANCTION-ORD-2026-449\nProject Description: Infrastructure grant for drilling and installing community solar water pump.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "raw_text": "GOVERNMENT OF INDIA - UNIQUE IDENTIFICATION AUTHORITY\nIDENTITY PROOF CARD (AADHAAR)\nName: Aarav Sharma\nFather's Name: R. K. Sharma\nDOB: 1985-06-12\nGender: Male\nAadhaar Number: AADHAAR-8921-4321-9988\nAddress: House No. 42, Ward 4, Greenfield Village, District North\nStatus: ACTIVE VERIFIED CITIZEN",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "raw_text": "STATE ELECTRICITY DISTRIBUTION UTILITY - RESIDENCE PROOF\n\nConsumer Name: Aarav Sharma\n\nConsumer ID: ELEC-99210-W4\n\nService Address: House No. 42, Ward 4, Greenfield Village\n\nVerification: Domestic residence address proof for Aarav Sharma.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "raw_text": "DEPARTMENT OF RURAL WATER SUPPLY - PRELIMINARY SANCTION ORDER\nSanction Order Reference: SANCTION-ORD-2026-449\nDate: 2026-03-01\nGrant Beneficiary: Aarav Sharma\nApproved Scheme: Installation of Community Solar Water Pump in Ward 4\nSanctioned Ceiling Amount: INR 2,50,000",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "community_consent_note.docx",
+      "raw_text": "COMMUNITY NOTE\n\nTo Whom It May Concern: Some people around here think the water pump is okay.\n\nThat's all.",
+      "page_count": 1,
+      "extraction_warnings": []
+    }
+  ]
+}

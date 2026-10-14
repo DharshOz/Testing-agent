@@ -1,0 +1,24 @@
+{
+  "verdict": "valid",
+  "summary": "All required documents and field data appear consistent and valid.",
+  "checks": [
+    {
+      "name": "Required Fields Completeness",
+      "passed": true,
+      "evidence": "All fields present",
+      "reason": "OK"
+    },
+    {
+      "name": "Applicant Name Consistency Across Documents",
+      "passed": true,
+      "evidence": "Applicant name consistent",
+      "reason": "OK"
+    },
+    {
+      "name": "Community Consent Document Formality",
+      "passed": true,
+      "evidence": "Consent documented",
+      "reason": "OK"
+    }
+  ]
+}

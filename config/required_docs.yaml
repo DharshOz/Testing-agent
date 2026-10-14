@@ -1,0 +1,58 @@
+grant_request:
+  name: "Community Grant Request"
+  description: "Application for local community development or infrastructure grant"
+  required_documents:
+    - type: "application_form"
+      name: "Formal Application Form"
+      description: "Official application document detailing project scope, title, applicant details, and requested amount"
+      keywords: ["application form", "grant application", "grant request", "proposal form", "project proposal", "application for grant"]
+    - type: "identity_proof"
+      name: "Identity Proof"
+      description: "Official government identification (e.g., Aadhaar, Voter ID, Passport, Driver License)"
+      keywords: ["aadhaar", "identity proof", "identity card", "voter id", "passport", "driving license", "pan card", "gov id"]
+    - type: "address_or_supporting_proof"
+      name: "Address or Supporting Proof"
+      description: "Utility bill, domicile certificate, or residence verification proof"
+      keywords: ["address proof", "utility bill", "electricity", "water bill", "residence proof", "consumer id", "domicile"]
+    - type: "sanction_document"
+      name: "Sanction / Department Approval Document"
+      description: "Preliminary sanction letter, departmental administrative clearance, or budget authorization"
+      keywords: ["sanction", "sanction order", "administrative approval", "departmental clearance", "sanctioned amount"]
+    - type: "community_consent_document"
+      name: "Community Consent Document"
+      description: "Formal document with community consent, signatures/names list of affected local residents, and date"
+      keywords: ["community consent", "consent", "resolution", "gram sabha", "signatory", "signatures and approvals", "residents consent"]
+
+complaint:
+  name: "Public Grievance / Complaint"
+  description: "Formal grievance against civic or departmental issues"
+  required_documents:
+    - type: "application_form"
+      name: "Grievance Complaint Form"
+      description: "Formal statement of complaint or petition"
+      keywords: ["complaint form", "grievance", "petition", "complainant", "formal representation"]
+    - type: "identity_proof"
+      name: "Identity Proof"
+      description: "Government ID proof of complainant"
+      keywords: ["aadhaar", "identity card", "identity proof", "voter id", "passport"]
+    - type: "address_or_supporting_proof"
+      name: "Supporting Evidence / Location Proof"
+      description: "Photos, location proof, or site address documentation"
+      keywords: ["address proof", "site photo", "location proof", "incident report", "utility bill"]
+
+permission:
+  name: "Public Event / Land Use Permission"
+  description: "Application seeking municipal or civic event permissions"
+  required_documents:
+    - type: "application_form"
+      name: "Permission Application Form"
+      description: "Formal request detailing event or land use activity"
+      keywords: ["permission application", "event request", "permission request", "noc application"]
+    - type: "identity_proof"
+      name: "Identity Proof"
+      description: "Identity document of applicant or event organizer"
+      keywords: ["aadhaar", "identity card", "identity proof", "voter id", "passport"]
+    - type: "community_consent_document"
+      name: "Community / Neighbor Consent"
+      description: "Consent letters or signatures from adjacent residents or community leaders"
+      keywords: ["community consent", "neighbor consent", "no objection", "consent resolution", "signatures"]

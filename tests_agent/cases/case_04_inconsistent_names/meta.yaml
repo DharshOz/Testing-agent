@@ -1,0 +1,4 @@
+case_id: case_04_inconsistent_names
+data_type: cross_doc_inconsistency
+must_pass: true
+split: tune

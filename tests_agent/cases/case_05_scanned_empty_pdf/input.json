@@ -1,0 +1,31 @@
+{
+  "ticket_id": "TICK-CASE_05_SCANNED_EMPTY_PDF",
+  "category": "grant_request",
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "path": "files/application_form.pdf",
+      "sha256": "b6bff74be7fcff561bf672d6a292058f4b4c4a6d6b32b0c7a055a285f8349d30"
+    },
+    {
+      "filename": "empty_scanned_id.pdf",
+      "path": "files/empty_scanned_id.pdf",
+      "sha256": "3b5ba53d21178090cdf165f5e1ba830a798cbcaf37f98eafe48235cc9d06799e"
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "path": "files/address_proof_utility_bill.docx",
+      "sha256": "be7a18aadcfc30fd86c667d31c9524ad42365eb2e17773a52f838fff7486dc25"
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "path": "files/sanction_order_approval.pdf",
+      "sha256": "15c80867ecf5abe61e88a101f8b90f9217b866a29cca5a210d32ba2bdc2ad2ca"
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "path": "files/community_consent_resolution.docx",
+      "sha256": "5a2607c9841486270b59e222c03055f7e64e464a4ce20d2e61a0c53a69f5d828"
+    }
+  ]
+}

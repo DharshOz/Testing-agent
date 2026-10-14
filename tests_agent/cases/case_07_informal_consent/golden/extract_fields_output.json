@@ -1,0 +1,58 @@
+{
+  "fields": {
+    "applicant_name": {
+      "value": "Sample Applicant Name",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "applicant_id": {
+      "value": "Sample Applicant Id",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "contact": {
+      "value": "Sample Contact",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "date": {
+      "value": "Sample Date",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "issue_title": {
+      "value": "Sample Issue Title",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "issue_description": {
+      "value": "Sample Issue Description",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "amount_requested": {
+      "value": "Sample Amount Requested",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "department": {
+      "value": "Sample Department",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    },
+    "supporting_references": {
+      "value": "Sample Supporting References",
+      "confidence": 0.95,
+      "source_filename": "sample_doc.txt",
+      "source_chunk_text": "Sample text verifying value."
+    }
+  }
+}

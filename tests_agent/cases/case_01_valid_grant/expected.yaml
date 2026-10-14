@@ -1,0 +1,20 @@
+check_documents:
+  all_required_present: true
+  missing_types: []
+extract_fields:
+  absent_fields: []
+extract_text:
+  expected_files:
+  - application_form.pdf
+  - aadhaar_identity_proof.txt
+  - address_proof_utility_bill.docx
+  - sanction_order_approval.pdf
+  - community_consent_resolution.docx
+generate_report:
+  applicant_name: Aarav Sharma
+  required_headings:
+  - Executive Summary
+  - Applicant & Submission Details
+  - Civic Request Details
+validate_ticket:
+  verdict: valid
