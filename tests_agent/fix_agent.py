@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
 
 import yaml
+import pandas as pd
 from groq import Groq
 
 from tests_agent.runner import TestRunner
