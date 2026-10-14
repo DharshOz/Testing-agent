@@ -1,0 +1,42 @@
+{
+  "verdict": "valid",
+  "summary": "All required fields are present and consistent; applicant name and Aadhaar match across documents; dates are chronologically coherent; sanction details align with request; community consent is formal; no contradictions detected.",
+  "checks": [
+    {
+      "name": "Required Fields Completeness",
+      "passed": true,
+      "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf",
+      "reason": "All essential fields successfully identified"
+    },
+    {
+      "name": "Applicant Name Consistency Across Documents",
+      "passed": true,
+      "evidence": "Application form, Aadhaar proof, and sanction order all list 'Devendra Malik'",
+      "reason": "Name matches exactly across all relevant documents"
+    },
+    {
+      "name": "Identification Number Verification",
+      "passed": true,
+      "evidence": "Aadhaar number AADHAAR-7788-9900-1122 appears in both application_form.pdf and aadhaar_identity_proof.txt",
+      "reason": "Identification number matches between application and identity proof"
+    },
+    {
+      "name": "Community Consent Document Formality",
+      "passed": true,
+      "evidence": "community_consent_resolution.docx contains meeting date 2026-04-08, subject statement, and '12 neighborhood residents signed.'",
+      "reason": "Document meets formal consent requirements with date, statement, and signatures"
+    },
+    {
+      "name": "Sanction Document Alignment",
+      "passed": true,
+      "evidence": "Sanction reference SANCTION-UGD-2026-104, beneficiary Devendra Malik, and amount INR 1,50,000 match the application request",
+      "reason": "Sanction details align with the grant request"
+    },
+    {
+      "name": "Contradiction & Plausibility Check",
+      "passed": true,
+      "evidence": "Application date (2026-04-10) is on/after community consent (2026-04-08) and matches sanction date (2026-04-10); no impossible timelines or contradictory statements found",
+      "reason": "Chronology is coherent and no contradictions detected"
+    }
+  ]
+}

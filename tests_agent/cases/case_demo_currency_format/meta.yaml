@@ -1,0 +1,4 @@
+case_id: case_demo_currency_format
+data_type: currency_formatting
+must_pass: true
+split: tune

@@ -1,0 +1,4 @@
+case_id: case_demo_date_order
+data_type: same_day_dates
+must_pass: true
+split: tune

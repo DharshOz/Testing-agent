@@ -1,0 +1,42 @@
+{
+  "verdict": "valid",
+  "summary": "All required fields are present, applicant name and Aadhaar number are consistent across documents, sanction details align with the request, community consent is formal with date and signatures, and no contradictions or implausible dates were found.",
+  "checks": [
+    {
+      "name": "Required Fields Completeness",
+      "passed": true,
+      "evidence": "Applicant Name, ID, Contact, Date, Issue Title, Issue Description, Amount Requested are present in application_form.pdf",
+      "reason": "All essential fields successfully identified"
+    },
+    {
+      "name": "Applicant Name Consistency Across Documents",
+      "passed": true,
+      "evidence": "Application form, Aadhaar proof, and sanction order all list 'Sunita Rao' as the applicant/beneficiary",
+      "reason": "Name matches across all relevant documents"
+    },
+    {
+      "name": "Identification Number Verification",
+      "passed": true,
+      "evidence": "Aadhaar number AADHAAR-1122-3344-5566 appears identically in application_form.pdf and aadhaar_identity_proof.txt",
+      "reason": "ID match confirmed"
+    },
+    {
+      "name": "Community Consent Document Formality",
+      "passed": true,
+      "evidence": "community_consent_resolution.docx includes resolution date 2026-03-15, subject statement, and 10 resident signatures",
+      "reason": "Meets civic formality requirements"
+    },
+    {
+      "name": "Sanction Document Alignment",
+      "passed": true,
+      "evidence": "Sanction order reference SANCTION-MWB-2026-881 matches supporting reference; approved amount INR 375000 matches requested Rs. 3,75,000; project title matches issue title",
+      "reason": "Project references and amount align"
+    },
+    {
+      "name": "Contradiction & Plausibility Check",
+      "passed": true,
+      "evidence": "Application date 2026-03-20 follows consent date 2026-03-15; no impossible future dates or conflicting statements",
+      "reason": "No contradictions or implausible timeline detected"
+    }
+  ]
+}

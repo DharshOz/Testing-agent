@@ -1,0 +1,58 @@
+{
+  "fields": {
+    "applicant_name": {
+      "value": "Devendra Malik",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant Name: Devendra Malik"
+    },
+    "applicant_id": {
+      "value": "AADHAAR-7788-9900-1122",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant ID: AADHAAR-7788-9900-1122"
+    },
+    "contact": {
+      "value": "+91-9765432100",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Contact: +91-9765432100"
+    },
+    "date": {
+      "value": "2026-04-10",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Date of Submission: 2026-04-10"
+    },
+    "issue_title": {
+      "value": "Miyawaki Mini-Forest Plantation in Sector 12",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Issue Title: Miyawaki Mini-Forest Plantation in Sector 12"
+    },
+    "issue_description": {
+      "value": "Urban afforestation proposal.",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Description: Urban afforestation proposal."
+    },
+    "amount_requested": {
+      "value": "INR 1,50,000",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Amount Requested: INR 1,50,000"
+    },
+    "department": {
+      "value": "Urban Greenery Development",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Department: Urban Greenery Development"
+    },
+    "supporting_references": {
+      "value": "SANCTION-UGD-2026-104",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Supporting References: SANCTION-UGD-2026-104"
+    }
+  }
+}

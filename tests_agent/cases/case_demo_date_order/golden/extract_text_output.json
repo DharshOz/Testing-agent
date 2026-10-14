@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "raw_text": "SAME-DAY GRANT APPLICATION\nApplicant Name: Devendra Malik\nApplicant ID: AADHAAR-7788-9900-1122\nContact: +91-9765432100\nDate of Submission: 2026-04-10\nDepartment: Urban Greenery Development\nIssue Title: Miyawaki Mini-Forest Plantation in Sector 12\nAmount Requested: INR 1,50,000\nSupporting References: SANCTION-UGD-2026-104\nDescription: Urban afforestation proposal.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "raw_text": "GOVERNMENT OF INDIA - AADHAAR CARD\nName: Devendra Malik\nAadhaar Number: AADHAAR-7788-9900-1122\nAddress: Block C-4, Sector 12\nStatus: ACTIVE",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "raw_text": "DOMESTIC ELECTRICITY BILL PROOF\n\nConsumer: Devendra Malik\n\nAddress: Block C-4, Sector 12\n\nVerification: Verified Domestic Residence",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "raw_text": "URBAN GREENERY DEVELOPMENT - ADMINISTRATIVE SANCTION\nSanction Reference: SANCTION-UGD-2026-104\nDate of Order: 2026-04-10\nBeneficiary: Devendra Malik\nSanctioned Amount: INR 1,50,000",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "raw_text": "COMMUNITY CONSENT RESOLUTION\n\nMeeting Date: 2026-04-08\n\nSubject: Public Consent for Mini-Forest Plantation\n\nSignatures: 12 neighborhood residents signed.",
+      "page_count": 1,
+      "extraction_warnings": []
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "raw_text": "CIVIC INFRASTRUCTURE GRANT REQUEST\nApplicant Name: Sunita Rao\nApplicant ID: AADHAAR-1122-3344-5566\nContact: +91-9811223344\nDate of Submission: 2026-03-20\nDepartment: Municipal Works Board\nIssue Title: Rainwater Harvesting Facility Installation\nAmount Requested: Rs. 3,75,000/- only\nSupporting References: SANCTION-MWB-2026-881\nDescription: Financial assistance for community rainwater recharge tank.",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "raw_text": "GOVERNMENT OF INDIA - AADHAAR CARD\nName: Sunita Rao\nAadhaar Number: AADHAAR-1122-3344-5566\nAddress: Plot 9, Lake View Enclave\nStatus: ACTIVE",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "raw_text": "ELECTRICITY RESIDENCE PROOF\n\nConsumer Name: Sunita Rao\n\nAddress: Plot 9, Lake View Enclave\n\nStatus: Verified Domestic Consumer",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "raw_text": "MUNICIPAL WORKS BOARD - SANCTION CLEARANCE\nSanction Order: SANCTION-MWB-2026-881\nBeneficiary: Sunita Rao\nApproved Amount: INR 375000\nScheme: Rainwater Harvesting Facility Installation",
+      "page_count": 1,
+      "extraction_warnings": []
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "raw_text": "RESIDENTS WELFARE ASSOCIATION CONSENT\n\nResolution Date: 2026-03-15\n\nSubject: Public Consent for Rainwater Recharge Tank\n\nSignatures: 10 Resident Signatories confirmed consent.",
+      "page_count": 1,
+      "extraction_warnings": []
+    }
+  ]
+}

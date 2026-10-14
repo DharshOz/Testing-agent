@@ -1,0 +1,58 @@
+{
+  "fields": {
+    "applicant_name": {
+      "value": "Sunita Rao",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant Name: Sunita Rao"
+    },
+    "applicant_id": {
+      "value": "AADHAAR-1122-3344-5566",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Applicant ID: AADHAAR-1122-3344-5566"
+    },
+    "contact": {
+      "value": "+91-9811223344",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Contact: +91-9811223344"
+    },
+    "date": {
+      "value": "2026-03-20",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Date of Submission: 2026-03-20"
+    },
+    "issue_title": {
+      "value": "Rainwater Harvesting Facility Installation",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Issue Title: Rainwater Harvesting Facility Installation"
+    },
+    "issue_description": {
+      "value": "Financial assistance for community rainwater recharge tank.",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Description: Financial assistance for community rainwater recharge tank."
+    },
+    "amount_requested": {
+      "value": "Rs. 3,75,000/- only",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Amount Requested: Rs. 3,75,000/- only"
+    },
+    "department": {
+      "value": "Municipal Works Board",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Department: Municipal Works Board"
+    },
+    "supporting_references": {
+      "value": "SANCTION-MWB-2026-881",
+      "confidence": 1.0,
+      "source_filename": "application_form.pdf",
+      "source_chunk_text": "Supporting References: SANCTION-MWB-2026-881"
+    }
+  }
+}

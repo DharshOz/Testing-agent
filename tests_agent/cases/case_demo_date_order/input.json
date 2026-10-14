@@ -1,0 +1,31 @@
+{
+  "ticket_id": "TICK-CASE_DEMO_DATE_ORDER",
+  "category": "grant_request",
+  "files": [
+    {
+      "filename": "application_form.pdf",
+      "path": "files/application_form.pdf",
+      "sha256": "bec0e091a9addf2de2bab4673ea98ae2cf9cb75429e75a22221e38d9f7f40518"
+    },
+    {
+      "filename": "aadhaar_identity_proof.txt",
+      "path": "files/aadhaar_identity_proof.txt",
+      "sha256": "4330ff959f9e1fbe4991856489d193956320fe2a313331b0442215783c6bca6b"
+    },
+    {
+      "filename": "address_proof_utility_bill.docx",
+      "path": "files/address_proof_utility_bill.docx",
+      "sha256": "ca03a6d6a06cc3d4b128fc08ce41636346baba3ac922dbc284fab6b835ebaaeb"
+    },
+    {
+      "filename": "sanction_order_approval.pdf",
+      "path": "files/sanction_order_approval.pdf",
+      "sha256": "d8c81141849a5749d7441d2067efa222f6bf434b604558fd58aae5e7fd2f1d03"
+    },
+    {
+      "filename": "community_consent_resolution.docx",
+      "path": "files/community_consent_resolution.docx",
+      "sha256": "26c780ef85a37fbb17c134739cd3db5f08e081cdd5455c01014099c7eb4cf2a8"
+    }
+  ]
+}
