@@ -167,7 +167,7 @@ def llm_call(
         {"role": "user", "content": rendered_prompt}
     ]
 
-    max_attempts = 2
+    max_attempts = 3
     last_error = None
 
     for attempt in range(1, max_attempts + 1):
@@ -197,14 +197,26 @@ def llm_call(
         except Exception as e:
             last_error = e
             latency = time.time() - start_time
-            logger.warning(f"LLM Call attempt {attempt} failed ({e}) in {latency:.2f}s. Retrying...")
-            if attempt < max_attempts:
-                # Add retry feedback to messages
-                messages.append({"role": "assistant", "content": str(raw_content if 'raw_content' in locals() else "")})
-                messages.append({
-                    "role": "user",
-                    "content": f"Your previous response caused error: {e}. Output ONLY valid JSON matching the requested schema exactly."
-                })
+            err_str = str(e)
+
+            # Handle Groq 429 Rate Limits / TPM burst exhaustion
+            if "429" in err_str or "rate_limit" in err_str.lower():
+                wait_m = re.search(r"try again in ([0-9.]+)s", err_str)
+                wait_sec = float(wait_m.group(1)) + 1.5 if wait_m else 10.0
+                logger.warning(f"Groq 429 Rate Limit encountered. Pausing {wait_sec:.1f}s...")
+                time.sleep(wait_sec)
+                # If on 120b and hit TPM limit, switch to gpt-oss-20b fallback
+                if groq_model == "openai/gpt-oss-120b" and attempt >= 2:
+                    logger.info("Switching to compatible fallback model openai/gpt-oss-20b due to rate limit.")
+                    groq_model = "openai/gpt-oss-20b"
+            else:
+                logger.warning(f"LLM Call attempt {attempt} failed ({e}) in {latency:.2f}s. Retrying...")
+                if attempt < max_attempts:
+                    messages.append({"role": "assistant", "content": str(raw_content if 'raw_content' in locals() else "")})
+                    messages.append({
+                        "role": "user",
+                        "content": f"Your previous response caused error: {e}. Output ONLY valid JSON matching the requested schema exactly."
+                    })
 
     logger.error(f"LLM Call failed after {max_attempts} attempts: {last_error}")
     raise RuntimeError(f"LLM call failed for prompt {prompt_file}: {last_error}")

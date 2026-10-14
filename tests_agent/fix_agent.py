@@ -95,7 +95,7 @@ def call_groq_propose_fix(
     """
     api_key = get_groq_api_key(for_testing=True)
     model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
-    fallback_model = "llama-3.3-70b-versatile"
+    fallback_model = "openai/gpt-oss-20b"
 
     system_prompt = (
         "You are an expert prompt engineer fixing a multi-stage AI document processing prompt.\n"
@@ -174,7 +174,14 @@ Please provide the complete, updated, improved prompt content that resolves this
 
             return new_content, "Generated via Groq."
         except Exception as e:
-            logger.warning(f"Groq fix proposal failed with model {selected_model}: {e}")
+            err_str = str(e)
+            logger.warning(f"Groq fix proposal failed with model {selected_model}: {err_str}")
+            if "429" in err_str or "rate_limit" in err_str.lower():
+                wait_m = re.search(r"try again in ([0-9.]+)s", err_str)
+                wait_sec = float(wait_m.group(1)) + 1.5 if wait_m else 11.0
+                logger.info(f"Rate limited on {selected_model}. Waiting {wait_sec:.1f}s before trying fallback model...")
+                import time
+                time.sleep(wait_sec)
             continue
 
     raise RuntimeError("Failed to obtain prompt fix proposal from Groq.")

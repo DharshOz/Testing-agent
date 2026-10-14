@@ -34,7 +34,7 @@ def _call_groq_judge(system_prompt: str, user_prompt: str) -> Dict[str, Any]:
     """Single call to Groq for judge evaluation with JSON output."""
     api_key = get_groq_api_key(for_testing=True)
     model = os.environ.get("GROQ_MODEL", "openai/gpt-oss-120b")
-    fallback_model = "llama-3.3-70b-versatile"
+    fallback_model = "openai/gpt-oss-20b"
 
     if not api_key:
         # Offline deterministic fallback
