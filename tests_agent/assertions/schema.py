@@ -1,4 +1,12 @@
+import sys
+from pathlib import Path
 from typing import Dict, Any, List
+
+# Ensure repository root is on sys.path when executed directly
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from pydantic import ValidationError
 from tests_agent.graph import get_stage_info
 

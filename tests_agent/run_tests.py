@@ -3,6 +3,11 @@ import sys
 from pathlib import Path
 from typing import List, Dict, Any, Set
 
+# Ensure repository root is on sys.path when executed directly
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from tests_agent.runner import TestRunner
 from tests_agent.graph import get_stages_in_order, downstream_of
 from tests_agent.detect_changes import get_changed_stages, get_test_plan

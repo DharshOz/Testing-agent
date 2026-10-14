@@ -30,7 +30,10 @@ jobs:
 
       - name: Run Dependency-Aware Tests
         env:
+          PYTHONPATH: .
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TESTING_AGENT_GROQ_KEY: ${{ secrets.TESTING_AGENT_GROQ_KEY }}
+          TICKET_AGENT_GROQ_KEY: ${{ secrets.TICKET_AGENT_GROQ_KEY }}
           GROQ_MODEL: "openai/gpt-oss-120b"
         run: |
           python run_tests.py --mode changed --output-md test_report.md --output-json test_report.json

@@ -3,8 +3,14 @@ import json
 import logging
 import os
 import shutil
+import sys
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Tuple
+
+# Ensure repository root is on sys.path when executed directly
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
 
 import yaml
 from pipeline.contracts import (

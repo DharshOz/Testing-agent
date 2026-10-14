@@ -2,8 +2,15 @@ import json
 import logging
 import os
 import re
+import sys
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+
+# Ensure repository root is on sys.path when executed directly
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from groq import Groq
 
 logger = logging.getLogger("tests_agent.judge")

@@ -27,10 +27,10 @@ Content:
 Return a valid JSON object matching this schema strictly:
 ```json
 {
-  "value": "string or null",
+  "value": "string",
   "confidence": 0.0,
-  "source_filename": "string or null",
-  "source_chunk_text": "string or null"
+  "source_filename": "string",
+  "source_chunk_text": "string"
 }
 ```
 Do not include any conversational preamble or markdown code blocks other than pure JSON if requested. Return JSON only.

@@ -1,6 +1,13 @@
 import subprocess
+import sys
 from pathlib import Path
 from typing import Set, List, Tuple, Dict
+
+# Ensure repository root is on sys.path when executed directly
+_REPO_ROOT = str(Path(__file__).resolve().parent.parent)
+if _REPO_ROOT not in sys.path:
+    sys.path.insert(0, _REPO_ROOT)
+
 from tests_agent.graph import downstream_of, get_stages_in_order
 
 # Exact file-to-stage mapping

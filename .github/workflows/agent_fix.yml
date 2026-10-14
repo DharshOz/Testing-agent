@@ -28,11 +28,14 @@ jobs:
 
       - name: Run Autonomous Fix Agent
         env:
+          PYTHONPATH: .
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TESTING_AGENT_GROQ_KEY: ${{ secrets.TESTING_AGENT_GROQ_KEY }}
+          TICKET_AGENT_GROQ_KEY: ${{ secrets.TICKET_AGENT_GROQ_KEY }}
           GROQ_MODEL: "openai/gpt-oss-120b"
           MAX_TOKENS_BUDGET: "100000"
         run: |
-          python tests_agent/fix_agent.py --max-attempts 4
+          python fix_agent.py --max-attempts 4
 
       - name: Create Pull Request with Proposed Fixes
         uses: peter-evans/create-pull-request@v6
