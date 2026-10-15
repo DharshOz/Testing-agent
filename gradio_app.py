@@ -231,16 +231,16 @@ def process_ticket_flow(
     return status_html, df_s1, df_s2, df_s3, df_s4, report_preview, docx_download
 
 
-def on_issue_selected(selected_issue_text: str) -> Tuple[str, str, str, str, str, str]:
+def on_issue_selected(selected_issue_text: str) -> Tuple[str, str, str, str, str, str, str]:
     """Loads details when an issue is selected from the dropdown."""
     df = load_issues_df()
     if df.empty or not selected_issue_text or "Issue #" not in selected_issue_text:
-        return "", "", "", "", "", ""
+        return "", "", "", "", "", "", ""
 
     issue_id = selected_issue_text.split("#")[1].split(" ")[0].strip()
     match = df[df["id"].astype(str) == str(issue_id)]
     if match.empty:
-        return "", "", "", "", "", ""
+        return "", "", "", "", "", "", ""
 
     row = match.iloc[0]
     stage = str(row["stage"])
@@ -257,24 +257,33 @@ def on_issue_selected(selected_issue_text: str) -> Tuple[str, str, str, str, str
     # Suggested guidance
     suggested_guidance = str(row.get("reason", ""))
 
-    return meta_info, issue_desc, str(row["test_case"]), prompt_file, current_prompt, suggested_guidance
+    return (
+        meta_info,
+        issue_desc,
+        str(row["test_case"]),
+        prompt_file,
+        current_prompt,
+        "*(Click 'Solve Problem' below to formulate and inspect the healed prompt)*",
+        suggested_guidance
+    )
 
 
 def run_agent_solve_problem(
     selected_issue_text: str,
     user_guidance_text: str,
     max_attempts: int
-) -> Tuple[str, str, pd.DataFrame, str]:
+) -> Tuple[str, str, pd.DataFrame, str, str]:
     """
     Executes the fix agent on the selected issue using the user's guidance idea.
     Returns:
     1. Outcome Status Markdown
     2. Unified Prompt Diff (Before vs After)
     3. Assertions Comparison Table (Before vs After)
-    4. Updated Prompt Content
+    4. Previous / Original Prompt Content
+    5. Current / Healed Prompt Content
     """
     if not selected_issue_text or "Issue #" not in selected_issue_text:
-        return "⚠️ Please select a valid issue first.", "", pd.DataFrame(), ""
+        return "⚠️ Please select a valid issue first.", "", pd.DataFrame(), "", ""
 
     set_testing_mode(True)
     issue_id = selected_issue_text.split("#")[1].split(" ")[0].strip()
@@ -321,7 +330,10 @@ def run_agent_solve_problem(
 
     df_comp = pd.DataFrame(comp_rows)
 
-    return outcome_md, diff_text, df_comp, result.get("after_prompt", "")
+    before_p = result.get("before_prompt", "")
+    after_p = result.get("after_prompt", "")
+
+    return outcome_md, diff_text, df_comp, before_p, after_p
 
 
 def run_full_test_suite_action(mode: str) -> Tuple[str, pd.DataFrame]:
@@ -497,13 +509,18 @@ with gr.Blocks(title="AI Document Workflow & Testing Agent") as demo:
             with gr.Row():
                 with gr.Column(scale=1):
                     gr.Markdown("#### 🔄 Visual Diff of Prompt Modifications (Before vs After)")
-                    diff_viewer = gr.Code(label="Prompt Unified Diff", language=None, lines=14)
+                    diff_viewer = gr.Code(label="Prompt Unified Diff (+ Added / - Removed)", language="diff", lines=14)
                 with gr.Column(scale=1):
                     gr.Markdown("#### ⚖️ Assertion Status Comparison (Before vs After)")
                     comp_table = gr.DataFrame(headers=["Assertion Name", "Status BEFORE Fix", "Status AFTER Fix", "Rationale"], label="Assertion Comparison")
 
-            with gr.Accordion("Inspect Full Updated Prompt", open=False):
-                updated_prompt_box = gr.Code(label="Updated Prompt Content", language="markdown", lines=16)
+            with gr.Row():
+                with gr.Column(scale=1):
+                    gr.Markdown("#### 📜 Previous Prompt (Before Fix)")
+                    before_prompt_box = gr.Code(label="Original / Past Prompt Content", language="markdown", lines=16)
+                with gr.Column(scale=1):
+                    gr.Markdown("#### ✨ Current Updated Prompt (After Fix)")
+                    updated_prompt_box = gr.Code(label="Healed / Current Updated Prompt Content", language="markdown", lines=16)
 
             # Events
             refresh_issues_btn.click(fn=load_issues_df, outputs=[issues_grid])
@@ -512,13 +529,13 @@ with gr.Blocks(title="AI Document Workflow & Testing Agent") as demo:
             issue_selector.change(
                 fn=on_issue_selected,
                 inputs=[issue_selector],
-                outputs=[issue_meta_box, issue_details_box, test_case_box, prompt_file_box, updated_prompt_box, user_guidance_input]
+                outputs=[issue_meta_box, issue_details_box, test_case_box, prompt_file_box, before_prompt_box, updated_prompt_box, user_guidance_input]
             )
 
             solve_problem_btn.click(
                 fn=run_agent_solve_problem,
                 inputs=[issue_selector, user_guidance_input, max_attempts_slider],
-                outputs=[fix_outcome_box, diff_viewer, comp_table, updated_prompt_box]
+                outputs=[fix_outcome_box, diff_viewer, comp_table, before_prompt_box, updated_prompt_box]
             )
             # Update issues grid after solve
             solve_problem_btn.click(fn=load_issues_df, outputs=[issues_grid])
