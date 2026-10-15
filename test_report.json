@@ -1,156 +1,75 @@
 {
   "summary": {
-    "regressions_count": 16
+    "regressions_count": 2
   },
   "regressions": [
     {
-      "name": "Validation Verdict Match",
-      "passed": false,
-      "reason": "Expected verdict 'valid', got 'needs_review'",
-      "evidence": "Summary: Automated validation encountered an error (LLM call failed for prompt prompts/validate_ticket.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7509, Requested 4166. Please try again in 27.5625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}). Routed to official queue for human verification.",
-      "regression_type": "baseline_regression",
-      "case_id": "case_01_valid_grant",
-      "stage": "validate_ticket (prop from validate_ticket)"
-    },
-    {
-      "name": "Report Suppression on Non-Valid Ticket",
-      "passed": false,
-      "reason": "Official report must not be generated when verdict != valid",
-      "evidence": "Docx path: ./reports/test_report_case_01_valid_grant_generate_report.docx",
-      "regression_type": "must_pass_failure",
-      "case_id": "case_01_valid_grant",
-      "stage": "generate_report (prop from validate_ticket)"
-    },
-    {
-      "name": "Report Suppression on Non-Valid Ticket",
-      "passed": false,
-      "reason": "Official report must not be generated when verdict != valid",
-      "evidence": "Docx path: ./reports/test_report_case_04_inconsistent_names_generate_report.docx",
-      "regression_type": "must_pass_failure",
-      "case_id": "case_04_inconsistent_names",
-      "stage": "generate_report (prop from validate_ticket)"
-    },
-    {
-      "name": "Propagation Execution Error [validate_ticket]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6185, Requested 3070. Please try again in 9.4125s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6185, Requested 3070. Please try again in 9.4125s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_05_scanned_empty_pdf",
-      "stage": "validate_ticket",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Propagation Execution Error [generate_report]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6008, Requested 3067. Please try again in 8.0625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6008, Requested 3067. Please try again in 8.0625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_05_scanned_empty_pdf",
-      "stage": "generate_report",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Stage Execution Error [extract_fields]",
-      "passed": false,
-      "reason": "Execution crashed: Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-      "evidence": "Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-      "case_id": "case_06_duplicate_file",
-      "stage": "extract_fields",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Propagation Execution Error [validate_ticket]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7901, Requested 3460. Please try again in 25.2075s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7901, Requested 3460. Please try again in 25.2075s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_06_duplicate_file",
-      "stage": "validate_ticket",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Propagation Execution Error [generate_report]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7719, Requested 2931. Please try again in 19.875s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7719, Requested 2931. Please try again in 19.875s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_06_duplicate_file",
-      "stage": "generate_report",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Stage Execution Error [extract_fields]",
-      "passed": false,
-      "reason": "Execution crashed: Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-      "evidence": "Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-      "case_id": "case_demo_currency_format",
-      "stage": "extract_fields",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Validation Verdict Match",
-      "passed": false,
-      "reason": "Expected verdict 'valid', got 'needs_review'",
-      "evidence": "Summary: All core fields are present and consistent; Aadhaar matches; sanction details align. Community consent lacks a list of resident names, making the consent document partially non\u2011formal. Recommend human review.",
-      "regression_type": "must_pass_failure",
-      "case_id": "case_demo_currency_format",
-      "stage": "validate_ticket (prop from validate_ticket)"
-    },
-    {
-      "name": "Report Suppression on Non-Valid Ticket",
-      "passed": false,
-      "reason": "Official report must not be generated when verdict != valid",
-      "evidence": "Docx path: ./reports/test_report_case_demo_currency_format_generate_report.docx",
-      "regression_type": "must_pass_failure",
-      "case_id": "case_demo_currency_format",
-      "stage": "generate_report (prop from validate_ticket)"
-    },
-    {
-      "name": "Propagation Execution Error [generate_report]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199398, Requested 3679. Please try again in 22m9.264s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199398, Requested 3679. Please try again in 22m9.264s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_demo_date_order",
-      "stage": "generate_report",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Validation Verdict Match",
-      "passed": false,
-      "reason": "Expected verdict 'valid', got 'needs_review'",
-      "evidence": "Summary: Automated validation encountered an error (LLM call failed for prompt prompts/validate_ticket.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199380, Requested 3403. Please try again in 20m2.256s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}). Routed to official queue for human verification.",
-      "regression_type": "must_pass_failure",
-      "case_id": "case_demo_id_prefix",
-      "stage": "validate_ticket"
-    },
-    {
-      "name": "LLM Judge [validate_ticket]: Validator must recognize that AADHAAR-8921-43...",
+      "name": "LLM Judge [validate_ticket]: Validator must recognize that 'Rs. 3,75,000/-...",
       "passed": false,
       "flaky": false,
-      "reason": "Judge invocation failed on all models (Both judge passes agreed: False)",
-      "evidence": "Run 1 (score=0.0): Judge invocation failed on all models | Run 2 (score=0.0): Judge invocation failed on all models",
+      "reason": "Output does not demonstrate recognition of equivalent amounts; no check for amount consistency is present.",
+      "evidence": "Judge score=0.0: Output does not demonstrate recognition of equivalent amounts; no check for amount consistency is present.",
       "regression_type": "must_pass_failure",
-      "case_id": "case_demo_id_prefix",
+      "case_id": "case_demo_currency_format",
       "stage": "validate_ticket"
     },
     {
-      "name": "Propagation Execution Error [validate_ticket]",
+      "name": "LLM Judge [validate_ticket]: Validator must accept that administrative san...",
       "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199371, Requested 3427. Please try again in 20m8.736s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199371, Requested 3427. Please try again in 20m8.736s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_demo_id_prefix",
-      "stage": "validate_ticket",
-      "regression_type": "crash_failure"
-    },
-    {
-      "name": "Propagation Execution Error [generate_report]",
-      "passed": false,
-      "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199369, Requested 3551. Please try again in 21m1.44s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199369, Requested 3551. Please try again in 21m1.44s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-      "case_id": "case_demo_id_prefix",
-      "stage": "generate_report",
-      "regression_type": "crash_failure"
+      "flaky": false,
+      "reason": "Output does not explicitly confirm same-day sanction validity per rubric.",
+      "evidence": "Judge score=0.3: Output does not explicitly confirm same-day sanction validity per rubric.",
+      "regression_type": "must_pass_failure",
+      "case_id": "case_demo_date_order",
+      "stage": "validate_ticket"
     }
   ],
   "results": {
     "case_01_valid_grant": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 5 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -321,6 +240,26 @@
           "evidence": "Value: 'SANCTION-ORD-2026-449'"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -332,50 +271,16 @@
           "name": "Validation Verdict Match",
           "passed": true,
           "reason": "Expected verdict 'valid', got 'valid'",
-          "evidence": "Summary: All required fields are present, applicant name and Aadhaar match across documents, dates are chronologically consistent, sanction details align with request, community consent is formal, and monetary amounts are equivalent."
+          "evidence": "Summary: All required fields present and consistent across documents; sanction and consent documents align with application; no contradictions detected."
         },
         {
           "name": "Validation Checks Evidence Completeness",
           "passed": true,
           "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 8"
+          "evidence": "Checks count: 6"
         }
       ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
-          "passed": false,
-          "reason": "Expected verdict 'valid', got 'needs_review'",
-          "evidence": "Summary: Automated validation encountered an error (LLM call failed for prompt prompts/validate_ticket.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7509, Requested 4166. Please try again in 27.5625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}). Routed to official queue for human verification."
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 1"
-        }
-      ],
-      "generate_report (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [generate_report]",
-          "passed": true,
-          "reason": "Output strictly adheres to GenerateReportOutput contract",
-          "evidence": "Fields validated against GenerateReportOutput"
-        },
-        {
-          "name": "Report Suppression on Non-Valid Ticket",
-          "passed": false,
-          "reason": "Official report must not be generated when verdict != valid",
-          "evidence": "Docx path: ./reports/test_report_case_01_valid_grant_generate_report.docx"
-        }
-      ],
-      "generate_report (prop from generate_report)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -403,6 +308,44 @@
       ]
     },
     "case_02_missing_consent": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 4",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -573,6 +516,26 @@
           "evidence": "Value: 'SANCTION-ORD-2026-449'"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=False, got False",
+          "evidence": "Missing doc types: ['community_consent_document']"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types ['community_consent_document'], got ['community_consent_document']",
+          "evidence": "{'community_consent_document'}"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -599,47 +562,7 @@
           "evidence": "Checks count: 1"
         }
       ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
-          "passed": true,
-          "reason": "Expected verdict 'invalid', got 'invalid'",
-          "evidence": "Summary: Ticket rejected automatically: Missing mandatory documents: Community Consent Document."
-        },
-        {
-          "name": "Hard Rule: Token-Saving Invalid On Missing Docs",
-          "passed": true,
-          "reason": "When required documents are missing, ticket MUST be invalid without invoking LLM",
-          "evidence": "Verdict: invalid"
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 1"
-        }
-      ],
-      "generate_report (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [generate_report]",
-          "passed": true,
-          "reason": "Output strictly adheres to GenerateReportOutput contract",
-          "evidence": "Fields validated against GenerateReportOutput"
-        },
-        {
-          "name": "Report Suppression on Non-Valid Ticket",
-          "passed": false,
-          "reason": "Official report must not be generated when verdict != valid",
-          "evidence": "Docx path: ./reports/test_report_case_02_missing_consent_generate_report.docx"
-        }
-      ],
-      "generate_report (prop from generate_report)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -655,6 +578,44 @@
       ]
     },
     "case_03_missing_sanction": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 4",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -825,6 +786,26 @@
           "evidence": "Value: 'SANCTION-ORD-2026-449'"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=False, got False",
+          "evidence": "Missing doc types: ['sanction_document']"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types ['sanction_document'], got ['sanction_document']",
+          "evidence": "{'sanction_document'}"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -851,47 +832,7 @@
           "evidence": "Checks count: 1"
         }
       ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
-          "passed": true,
-          "reason": "Expected verdict 'invalid', got 'invalid'",
-          "evidence": "Summary: Ticket rejected automatically: Missing mandatory documents: Sanction / Department Approval Document."
-        },
-        {
-          "name": "Hard Rule: Token-Saving Invalid On Missing Docs",
-          "passed": true,
-          "reason": "When required documents are missing, ticket MUST be invalid without invoking LLM",
-          "evidence": "Verdict: invalid"
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 1"
-        }
-      ],
-      "generate_report (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [generate_report]",
-          "passed": true,
-          "reason": "Output strictly adheres to GenerateReportOutput contract",
-          "evidence": "Fields validated against GenerateReportOutput"
-        },
-        {
-          "name": "Report Suppression on Non-Valid Ticket",
-          "passed": false,
-          "reason": "Official report must not be generated when verdict != valid",
-          "evidence": "Docx path: ./reports/test_report_case_03_missing_sanction_generate_report.docx"
-        }
-      ],
-      "generate_report (prop from generate_report)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -907,6 +848,50 @@
       ]
     },
     "case_04_inconsistent_names": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 158, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 118, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -1077,6 +1062,26 @@
           "evidence": "Value: 'SANCTION-ORD-2026-449'"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -1088,50 +1093,16 @@
           "name": "Validation Verdict Match",
           "passed": true,
           "reason": "Expected verdict 'invalid', got 'invalid'",
-          "evidence": "Summary: Critical inconsistencies found: applicant name and Aadhaar number differ across documents, requested amount (INR 2,50,000) does not match sanctioned amount (INR 1,20,000), and reference numbers are mismatched. The ticket fails validation."
+          "evidence": "Summary: The application contains multiple inconsistencies: applicant name and Aadhaar number do not match the identity proof, sanction reference and amount differ from the application, and the applicant is not the recipient in the sanction order. These contradictions invalidate the submission."
         },
         {
           "name": "Validation Checks Evidence Completeness",
           "passed": true,
           "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 7"
+          "evidence": "Checks count: 6"
         }
       ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
-          "passed": true,
-          "reason": "Expected verdict 'invalid', got 'invalid'",
-          "evidence": "Summary: Application fails audit due to mismatched applicant name and ID across documents, differing sanction amount and reference, and inconsistent monetary values."
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 7"
-        }
-      ],
-      "generate_report (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [generate_report]",
-          "passed": true,
-          "reason": "Output strictly adheres to GenerateReportOutput contract",
-          "evidence": "Fields validated against GenerateReportOutput"
-        },
-        {
-          "name": "Report Suppression on Non-Valid Ticket",
-          "passed": false,
-          "reason": "Official report must not be generated when verdict != valid",
-          "evidence": "Docx path: ./reports/test_report_case_04_inconsistent_names_generate_report.docx"
-        }
-      ],
-      "generate_report (prop from generate_report)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -1153,6 +1124,50 @@
       ]
     },
     "case_05_scanned_empty_pdf": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'empty_scanned_id.pdf', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (empty_scanned_id.pdf)",
+          "passed": true,
+          "reason": "File empty_scanned_id.pdf is expected to be empty/scanned",
+          "evidence": "Length: 0"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -1323,6 +1338,20 @@
           "evidence": "Value: 'SANCTION-ORD-2026-449'"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Empty Files Flagged Check",
+          "passed": true,
+          "reason": "Expected empty files ['empty_scanned_id.pdf'], got ['empty_scanned_id.pdf']",
+          "evidence": "{'empty_scanned_id.pdf'}"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -1343,30 +1372,146 @@
           "evidence": "Checks count: 1"
         }
       ],
-      "prop_validate_ticket": [
+      "generate_report": [
         {
-          "name": "Propagation Execution Error [validate_ticket]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6185, Requested 3070. Please try again in 9.4125s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6185, Requested 3070. Please try again in 9.4125s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
-        }
-      ],
-      "prop_generate_report": [
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
         {
-          "name": "Propagation Execution Error [generate_report]",
+          "name": "Report Suppression on Non-Valid Ticket",
           "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6008, Requested 3067. Please try again in 8.0625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 6008, Requested 3067. Please try again in 8.0625s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+          "reason": "Official report must not be generated when verdict != valid",
+          "evidence": "Docx path: ./reports/test_report_case_05_scanned_empty_pdf_generate_report.docx"
         }
       ]
     },
     "case_06_duplicate_file": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 6",
+          "evidence": "Filenames: ['application_form.pdf', 'application_form_copy.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (application_form_copy.pdf)",
+          "passed": true,
+          "reason": "File application_form_copy.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
-          "name": "Stage Execution Error [extract_fields]",
-          "passed": false,
-          "reason": "Execution crashed: Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-          "evidence": "Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead."
+          "name": "Schema Check [extract_fields]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractFieldsOutput contract",
+          "evidence": "Fields validated against ExtractFieldsOutput"
+        },
+        {
+          "name": "Confidence Range Check (applicant_name)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (applicant_id)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (contact)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (date)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_title)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_description)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (amount_requested)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (department)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (supporting_references)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Duplicate Files Flagged Check",
+          "passed": true,
+          "reason": "Expected duplicates ['application_form_copy.pdf'], got ['application_form_copy.pdf']",
+          "evidence": "{'application_form_copy.pdf'}"
         }
       ],
       "validate_ticket": [
@@ -1380,33 +1525,473 @@
           "name": "Validation Checks Evidence Completeness",
           "passed": true,
           "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 1"
+          "evidence": "Checks count: 6"
         }
       ],
-      "prop_validate_ticket": [
+      "generate_report": [
         {
-          "name": "Propagation Execution Error [validate_ticket]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7901, Requested 3460. Please try again in 25.2075s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7901, Requested 3460. Please try again in 25.2075s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
+        {
+          "name": "Generated DOCX Readability",
+          "passed": true,
+          "reason": "Report docx file must exist and open with python-docx",
+          "evidence": "Path: ./reports/test_report_case_06_duplicate_file_generate_report.docx, Exists: True, Openable: True"
+        },
+        {
+          "name": "Required Document Headings Presence",
+          "passed": true,
+          "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details', 'Civic Request Details', 'Supporting Documents Audit']",
+          "evidence": "Missing: []"
+        }
+      ]
+    },
+    "case_07_informal_consent": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_note.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 464, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_note.docx)",
+          "passed": true,
+          "reason": "File community_consent_note.docx text must be non-empty",
+          "evidence": "Extracted chars: 106, pages: 1"
         }
       ],
-      "prop_generate_report": [
+      "extract_fields": [
         {
-          "name": "Propagation Execution Error [generate_report]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7719, Requested 2931. Please try again in 19.875s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 7719, Requested 2931. Please try again in 19.875s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+          "name": "Schema Check [extract_fields]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractFieldsOutput contract",
+          "evidence": "Fields validated against ExtractFieldsOutput"
+        },
+        {
+          "name": "Confidence Range Check (applicant_name)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (applicant_id)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (contact)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (date)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_title)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_description)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (amount_requested)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (department)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (supporting_references)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        }
+      ],
+      "validate_ticket": [
+        {
+          "name": "Schema Check [validate_ticket]",
+          "passed": true,
+          "reason": "Output strictly adheres to ValidateTicketOutput contract",
+          "evidence": "Fields validated against ValidateTicketOutput"
+        },
+        {
+          "name": "Validation Verdict Match",
+          "passed": true,
+          "reason": "Expected verdict 'invalid', got 'invalid'",
+          "evidence": "Summary: Community consent document is not formal and lacks required elements, failing the civic consent requirement."
+        },
+        {
+          "name": "Validation Checks Evidence Completeness",
+          "passed": true,
+          "reason": "All audit checks must provide non-empty evidence and rationale",
+          "evidence": "Checks count: 6"
+        }
+      ],
+      "generate_report": [
+        {
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
+        {
+          "name": "Generated DOCX Readability",
+          "passed": true,
+          "reason": "Report docx file must exist and open with python-docx",
+          "evidence": "Path: ./reports/test_report_case_07_informal_consent_generate_report.docx, Exists: True, Openable: True"
+        },
+        {
+          "name": "Required Document Headings Presence",
+          "passed": true,
+          "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details', 'Civic Request Details', 'Supporting Documents Audit']",
+          "evidence": "Missing: []"
+        }
+      ]
+    },
+    "case_08_hallucination_trap": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 0 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 232, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 296, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 238, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 268, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 498, pages: 1"
+        }
+      ],
+      "extract_fields": [
+        {
+          "name": "Schema Check [extract_fields]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractFieldsOutput contract",
+          "evidence": "Fields validated against ExtractFieldsOutput"
+        },
+        {
+          "name": "Absent Field Null Check (amount_requested)",
+          "passed": true,
+          "reason": "Field 'amount_requested' must return null if not present in context",
+          "evidence": "Value returned: None"
+        },
+        {
+          "name": "Absent Field Null Check (department)",
+          "passed": true,
+          "reason": "Field 'department' must return null if not present in context",
+          "evidence": "Value returned: None"
+        },
+        {
+          "name": "Confidence Range Check (applicant_name)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (applicant_id)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (contact)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (date)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_title)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_description)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (amount_requested)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (department)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (supporting_references)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        }
+      ],
+      "validate_ticket": [
+        {
+          "name": "Schema Check [validate_ticket]",
+          "passed": true,
+          "reason": "Output strictly adheres to ValidateTicketOutput contract",
+          "evidence": "Fields validated against ValidateTicketOutput"
+        },
+        {
+          "name": "Validation Checks Evidence Completeness",
+          "passed": true,
+          "reason": "All audit checks must provide non-empty evidence and rationale",
+          "evidence": "Checks count: 6"
+        }
+      ],
+      "generate_report": [
+        {
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
+        {
+          "name": "Generated DOCX Readability",
+          "passed": true,
+          "reason": "Report docx file must exist and open with python-docx",
+          "evidence": "Path: ./reports/test_report_case_08_hallucination_trap_generate_report.docx, Exists: True, Openable: True"
+        },
+        {
+          "name": "Required Document Headings Presence",
+          "passed": true,
+          "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details', 'Civic Request Details', 'Supporting Documents Audit']",
+          "evidence": "Missing: []"
         }
       ]
     },
     "case_demo_currency_format": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 5 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 399, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 140, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 126, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 183, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 175, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
-          "name": "Stage Execution Error [extract_fields]",
-          "passed": false,
-          "reason": "Execution crashed: Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead.",
-          "evidence": "Storage folder ./qdrant_data is already accessed by another instance of Qdrant client. If you require concurrent access, use Qdrant server instead."
+          "name": "Schema Check [extract_fields]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractFieldsOutput contract",
+          "evidence": "Fields validated against ExtractFieldsOutput"
+        },
+        {
+          "name": "Confidence Range Check (applicant_name)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (applicant_id)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (contact)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (date)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_title)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (issue_description)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (amount_requested)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (department)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        },
+        {
+          "name": "Confidence Range Check (supporting_references)",
+          "passed": true,
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
         }
       ],
       "validate_ticket": [
@@ -1420,7 +2005,7 @@
           "name": "Validation Verdict Match",
           "passed": true,
           "reason": "Expected verdict 'valid', got 'valid'",
-          "evidence": "Summary: All required fields are present, applicant name and Aadhaar number are consistent across documents, sanction details match the request, and the community consent document meets formal requirements with date and signatures. No contradictions or implausible dates were found."
+          "evidence": "Summary: All required fields present and consistent across documents; identity and sanction details match; community consent is formal and timely; no contradictions detected."
         },
         {
           "name": "Validation Checks Evidence Completeness",
@@ -1430,54 +2015,13 @@
         },
         {
           "name": "LLM Judge [validate_ticket]: Validator must recognize that 'Rs. 3,75,000/-...",
-          "passed": true,
-          "flaky": false,
-          "reason": "The output includes a Sanction Document Alignment check confirming that INR\u202f375000 matches the requested Rs.\u202f3,75,000, demonstrating recognition of the equivalent amounts. (Both judge passes agreed: True)",
-          "evidence": "Run 1 (score=1.0): The output includes a Sanction Document Alignment check confirming that INR\u202f375000 matches the requested Rs.\u202f3,75,000, demonstrating recognition of the equivalent amounts. | Run 2 (score=1.0): The output includes a Sanction Document Alignment check confirming that Rs. 3,75,000/- only and INR 375000 are treated as the same amount, with no discrepancy flagged."
-        }
-      ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
           "passed": false,
-          "reason": "Expected verdict 'valid', got 'needs_review'",
-          "evidence": "Summary: All core fields are present and consistent; Aadhaar matches; sanction details align. Community consent lacks a list of resident names, making the consent document partially non\u2011formal. Recommend human review."
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 6"
-        },
-        {
-          "name": "LLM Judge [validate_ticket]: Validator must recognize that 'Rs. 3,75,000/-...",
-          "passed": true,
           "flaky": false,
-          "reason": "The output treats Rs. 3,75,000/- only and INR 375000 as equivalent, passing the amount consistency check without flagging a discrepancy. (Both judge passes agreed: True)",
-          "evidence": "Run 1 (score=1.0): The output treats Rs. 3,75,000/- only and INR 375000 as equivalent, passing the amount consistency check without flagging a discrepancy. | Run 2 (score=1.0): The output correctly aligns the Rs. 3,75,000/- amount with INR 375000 and does not flag a discrepancy, satisfying the rubric criterion."
+          "reason": "Output does not demonstrate recognition of equivalent amounts; no check for amount consistency is present.",
+          "evidence": "Judge score=0.0: Output does not demonstrate recognition of equivalent amounts; no check for amount consistency is present."
         }
       ],
-      "generate_report (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [generate_report]",
-          "passed": true,
-          "reason": "Output strictly adheres to GenerateReportOutput contract",
-          "evidence": "Fields validated against GenerateReportOutput"
-        },
-        {
-          "name": "Report Suppression on Non-Valid Ticket",
-          "passed": false,
-          "reason": "Official report must not be generated when verdict != valid",
-          "evidence": "Docx path: ./reports/test_report_case_demo_currency_format_generate_report.docx"
-        }
-      ],
-      "generate_report (prop from generate_report)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -1499,6 +2043,50 @@
       ]
     },
     "case_demo_date_order": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 5 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 365, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 139, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 131, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 180, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 153, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -1509,164 +2097,76 @@
         {
           "name": "Confidence Range Check (applicant_name)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (applicant_name)",
-          "passed": true,
-          "reason": "Extracted value 'Devendra Malik' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Applicant Name: Devendra Malik"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (applicant_name)",
-          "passed": true,
-          "reason": "Extracted value 'Devendra Malik' must exist in raw document text",
-          "evidence": "Value: 'Devendra Malik'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (applicant_id)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (applicant_id)",
-          "passed": true,
-          "reason": "Extracted value 'AADHAAR-7788-9900-1122' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Applicant ID: AADHAAR-7788-9900-1122"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (applicant_id)",
-          "passed": true,
-          "reason": "Extracted value 'AADHAAR-7788-9900-1122' must exist in raw document text",
-          "evidence": "Value: 'AADHAAR-7788-9900-1122'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (contact)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (contact)",
-          "passed": true,
-          "reason": "Extracted value '+91-9765432100' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Contact: +91-9765432100"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (contact)",
-          "passed": true,
-          "reason": "Extracted value '+91-9765432100' must exist in raw document text",
-          "evidence": "Value: '+91-9765432100'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (date)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (date)",
-          "passed": true,
-          "reason": "Extracted value '2026-04-10' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Date of Submission: 2026-04-10"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (date)",
-          "passed": true,
-          "reason": "Extracted value '2026-04-10' must exist in raw document text",
-          "evidence": "Value: '2026-04-10'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (issue_title)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (issue_title)",
-          "passed": true,
-          "reason": "Extracted value 'Miyawaki Mini-Forest Plantation in Sector 12' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Issue Title: Miyawaki Mini-Forest Plantation in Sector 12"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (issue_title)",
-          "passed": true,
-          "reason": "Extracted value 'Miyawaki Mini-Forest Plantation in Sector 12' must exist in raw document text",
-          "evidence": "Value: 'Miyawaki Mini-Forest Plantation in Sector 12'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (issue_description)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (issue_description)",
-          "passed": true,
-          "reason": "Extracted value 'Urban afforestation proposal.' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Description: Urban afforestation proposal."
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (issue_description)",
-          "passed": true,
-          "reason": "Extracted value 'Urban afforestation proposal.' must exist in raw document text",
-          "evidence": "Value: 'Urban afforestation proposal.'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (amount_requested)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (amount_requested)",
-          "passed": true,
-          "reason": "Extracted value 'INR 1,50,000' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Amount Requested: INR 1,50,000"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (amount_requested)",
-          "passed": true,
-          "reason": "Extracted value 'INR 1,50,000' must exist in raw document text",
-          "evidence": "Value: 'INR 1,50,000'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (department)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
-        },
-        {
-          "name": "Anti-Hallucination Chunk Check (department)",
-          "passed": true,
-          "reason": "Extracted value 'Urban Greenery Development' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Department: Urban Greenery Development"
-        },
-        {
-          "name": "Anti-Hallucination Raw Document Check (department)",
-          "passed": true,
-          "reason": "Extracted value 'Urban Greenery Development' must exist in raw document text",
-          "evidence": "Value: 'Urban Greenery Development'"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
         },
         {
           "name": "Confidence Range Check (supporting_references)",
           "passed": true,
-          "reason": "Confidence 1.0 must be in range [0.0, 1.0]",
-          "evidence": "Confidence: 1.0"
+          "reason": "Confidence 0.0 must be in range [0.0, 1.0]",
+          "evidence": "Confidence: 0.0"
+        }
+      ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
         },
         {
-          "name": "Anti-Hallucination Chunk Check (supporting_references)",
+          "name": "Document Check All Required Present",
           "passed": true,
-          "reason": "Extracted value 'SANCTION-UGD-2026-104' must be grounded in source_chunk_text",
-          "evidence": "Chunk snippet: Supporting References: SANCTION-UGD-2026-104"
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
         },
         {
-          "name": "Anti-Hallucination Raw Document Check (supporting_references)",
+          "name": "Missing Document Types Exact Match",
           "passed": true,
-          "reason": "Extracted value 'SANCTION-UGD-2026-104' must exist in raw document text",
-          "evidence": "Value: 'SANCTION-UGD-2026-104'"
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
         }
       ],
       "validate_ticket": [
@@ -1680,50 +2180,23 @@
           "name": "Validation Verdict Match",
           "passed": true,
           "reason": "Expected verdict 'valid', got 'valid'",
-          "evidence": "Summary: All required fields are present, applicant name and Aadhaar number are consistent across documents, dates are chronologically coherent, sanction details match the request, and the community consent document meets formal requirements."
+          "evidence": "Summary: All required fields present and consistent across documents; sanction and consent documents align; no contradictions found."
         },
         {
           "name": "Validation Checks Evidence Completeness",
           "passed": true,
           "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 6"
+          "evidence": "Checks count: 7"
         },
         {
           "name": "LLM Judge [validate_ticket]: Validator must accept that administrative san...",
-          "passed": true,
+          "passed": false,
           "flaky": false,
-          "reason": "The output explicitly accepts the sanction date matching the application date as valid, satisfying the rubric criterion. (Both judge passes agreed: True)",
-          "evidence": "Run 1 (score=1.0): The output explicitly accepts the sanction date matching the application date as valid, satisfying the rubric criterion. | Run 2 (score=1.0): The output explicitly accepts the sanction date matching the application submission date as valid, satisfying the rubric requirement."
+          "reason": "Output does not explicitly confirm same-day sanction validity per rubric.",
+          "evidence": "Judge score=0.3: Output does not explicitly confirm same-day sanction validity per rubric."
         }
       ],
-      "validate_ticket (prop from validate_ticket)": [
-        {
-          "name": "Schema Check [validate_ticket]",
-          "passed": true,
-          "reason": "Output strictly adheres to ValidateTicketOutput contract",
-          "evidence": "Fields validated against ValidateTicketOutput"
-        },
-        {
-          "name": "Validation Verdict Match",
-          "passed": true,
-          "reason": "Expected verdict 'valid', got 'valid'",
-          "evidence": "Summary: All required fields are present, applicant name and Aadhaar number are consistent across documents, dates are chronologically coherent, sanction details align with the request, and the community consent document meets formal requirements."
-        },
-        {
-          "name": "Validation Checks Evidence Completeness",
-          "passed": true,
-          "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 6"
-        },
-        {
-          "name": "LLM Judge [validate_ticket]: Validator must accept that administrative san...",
-          "passed": true,
-          "flaky": false,
-          "reason": "The output correctly validates that the sanction dated the same day as the application is acceptable and reports no timeline conflict, satisfying the rubric criterion. (Both judge passes agreed: True)",
-          "evidence": "Run 1 (score=1.0): The output correctly validates that the sanction dated the same day as the application is acceptable and reports no timeline conflict, satisfying the rubric criterion. | Run 2 (score=1.0): The output validates the same-day sanction as acceptable, confirming timeline integrity per the rubric."
-        }
-      ],
-      "generate_report (prop from validate_ticket)": [
+      "generate_report": [
         {
           "name": "Schema Check [generate_report]",
           "passed": true,
@@ -1742,17 +2215,53 @@
           "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details']",
           "evidence": "Missing: []"
         }
-      ],
-      "prop_generate_report": [
-        {
-          "name": "Propagation Execution Error [generate_report]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199398, Requested 3679. Please try again in 22m9.264s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199398, Requested 3679. Please try again in 22m9.264s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
-        }
       ]
     },
     "case_demo_id_prefix": {
+      "extract_text": [
+        {
+          "name": "Schema Check [extract_text]",
+          "passed": true,
+          "reason": "Output strictly adheres to ExtractTextOutput contract",
+          "evidence": "Fields validated against ExtractTextOutput"
+        },
+        {
+          "name": "Text Extraction Non-Empty Files Count",
+          "passed": true,
+          "reason": "Expected at least 5 extracted files, got 5",
+          "evidence": "Filenames: ['application_form.pdf', 'aadhaar_identity_proof.txt', 'address_proof_utility_bill.docx', 'sanction_order_approval.pdf', 'community_consent_resolution.docx']"
+        },
+        {
+          "name": "Extraction Text Presence (application_form.pdf)",
+          "passed": true,
+          "reason": "File application_form.pdf text must be non-empty",
+          "evidence": "Extracted chars: 438, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (aadhaar_identity_proof.txt)",
+          "passed": true,
+          "reason": "File aadhaar_identity_proof.txt text must be non-empty",
+          "evidence": "Extracted chars: 288, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (address_proof_utility_bill.docx)",
+          "passed": true,
+          "reason": "File address_proof_utility_bill.docx text must be non-empty",
+          "evidence": "Extracted chars: 204, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (sanction_order_approval.pdf)",
+          "passed": true,
+          "reason": "File sanction_order_approval.pdf text must be non-empty",
+          "evidence": "Extracted chars: 231, pages: 1"
+        },
+        {
+          "name": "Extraction Text Presence (community_consent_resolution.docx)",
+          "passed": true,
+          "reason": "File community_consent_resolution.docx text must be non-empty",
+          "evidence": "Extracted chars: 347, pages: 1"
+        }
+      ],
       "extract_fields": [
         {
           "name": "Schema Check [extract_fields]",
@@ -1815,6 +2324,26 @@
           "evidence": "Confidence: 0.0"
         }
       ],
+      "check_documents": [
+        {
+          "name": "Schema Check [check_documents]",
+          "passed": true,
+          "reason": "Output strictly adheres to CheckDocumentsOutput contract",
+          "evidence": "Fields validated against CheckDocumentsOutput"
+        },
+        {
+          "name": "Document Check All Required Present",
+          "passed": true,
+          "reason": "Expected all_required_present=True, got True",
+          "evidence": "Missing doc types: []"
+        },
+        {
+          "name": "Missing Document Types Exact Match",
+          "passed": true,
+          "reason": "Expected missing types [], got []",
+          "evidence": "set()"
+        }
+      ],
       "validate_ticket": [
         {
           "name": "Schema Check [validate_ticket]",
@@ -1824,38 +2353,48 @@
         },
         {
           "name": "Validation Verdict Match",
-          "passed": false,
-          "reason": "Expected verdict 'valid', got 'needs_review'",
-          "evidence": "Summary: Automated validation encountered an error (LLM call failed for prompt prompts/validate_ticket.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199380, Requested 3403. Please try again in 20m2.256s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}). Routed to official queue for human verification."
+          "passed": true,
+          "reason": "Expected verdict 'valid', got 'valid'",
+          "evidence": "Summary: All required fields are present and consistent across documents; identification numbers match; dates are chronologically coherent; sanction and consent documents align with the application; no contradictions detected."
         },
         {
           "name": "Validation Checks Evidence Completeness",
           "passed": true,
           "reason": "All audit checks must provide non-empty evidence and rationale",
-          "evidence": "Checks count: 1"
+          "evidence": "Checks count: 6"
         },
         {
           "name": "LLM Judge [validate_ticket]: Validator must recognize that AADHAAR-8921-43...",
-          "passed": false,
+          "passed": true,
           "flaky": false,
-          "reason": "Judge invocation failed on all models (Both judge passes agreed: False)",
-          "evidence": "Run 1 (score=0.0): Judge invocation failed on all models | Run 2 (score=0.0): Judge invocation failed on all models"
+          "reason": "The output states that identification numbers match, indicating recognition of the equivalence of AADHAAR-8921-4321-9988 and 8921-4321-9988.",
+          "evidence": "Judge score=1.0: The output states that identification numbers match, indicating recognition of the equivalence of AADHAAR-8921-4321-9988 and 8921-4321-9988."
         }
       ],
-      "prop_validate_ticket": [
+      "generate_report": [
         {
-          "name": "Propagation Execution Error [validate_ticket]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199371, Requested 3427. Please try again in 20m8.736s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199371, Requested 3427. Please try again in 20m8.736s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
-        }
-      ],
-      "prop_generate_report": [
+          "name": "Schema Check [generate_report]",
+          "passed": true,
+          "reason": "Output strictly adheres to GenerateReportOutput contract",
+          "evidence": "Fields validated against GenerateReportOutput"
+        },
         {
-          "name": "Propagation Execution Error [generate_report]",
-          "passed": false,
-          "reason": "Propagation crashed: LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199369, Requested 3551. Please try again in 21m1.44s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}",
-          "evidence": "LLM call failed for prompt prompts/generate_report.md: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01knnz09grevybahvs93mg15pt` service tier `on_demand` on tokens per day (TPD): Limit 200000, Used 199369, Requested 3551. Please try again in 21m1.44s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+          "name": "Generated DOCX Readability",
+          "passed": true,
+          "reason": "Report docx file must exist and open with python-docx",
+          "evidence": "Path: ./reports/test_report_case_demo_id_prefix_generate_report.docx, Exists: True, Openable: True"
+        },
+        {
+          "name": "Required Document Headings Presence",
+          "passed": true,
+          "reason": "Report must include standard headings: ['Executive Summary', 'Applicant & Submission Details', 'Civic Request Details']",
+          "evidence": "Missing: []"
+        },
+        {
+          "name": "Applicant Name Presence in Report",
+          "passed": true,
+          "reason": "Applicant name 'Aarav Sharma' must appear in the generated report",
+          "evidence": "Found in document text: True"
         }
       ]
     }

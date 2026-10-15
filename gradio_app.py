@@ -509,7 +509,7 @@ with gr.Blocks(title="AI Document Workflow & Testing Agent") as demo:
             with gr.Row():
                 with gr.Column(scale=1):
                     gr.Markdown("#### 🔄 Visual Diff of Prompt Modifications (Before vs After)")
-                    diff_viewer = gr.Code(label="Prompt Unified Diff (+ Added / - Removed)", language="diff", lines=14)
+                    diff_viewer = gr.Code(label="Prompt Unified Diff (+ Added / - Removed)", language=None, lines=14)
                 with gr.Column(scale=1):
                     gr.Markdown("#### ⚖️ Assertion Status Comparison (Before vs After)")
                     comp_table = gr.DataFrame(headers=["Assertion Name", "Status BEFORE Fix", "Status AFTER Fix", "Rationale"], label="Assertion Comparison")
