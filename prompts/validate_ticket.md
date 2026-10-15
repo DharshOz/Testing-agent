@@ -26,7 +26,7 @@ Category: {{category}}
 1. **Required Fields Completeness**: Ensure core fields (applicant name, ID, contact, date, issue title, issue description) are clearly extracted and non-empty.
 2. **Internal Consistency (Cross-Document Match)**:
    - Does the applicant name match exactly across the application form, ID proof, sanction letter, and consent doc?
-   - Do identification numbers (Aadhaar, Voter ID, PAN, etc.) match between the application and identity proof?
+   - Do identification numbers (Aadhaar, Voter ID, PAN, etc.) match between the application and identity proof? **Before comparing, strip any leading alphabetic prefixes and hyphens (e.g., 'AADHAAR-', 'ID-') from the numbers.**
    - Are dates chronologically coherent (e.g. application date is after or on sanction/consent dates, not in the distant future)?
 3. **Sanction Document Alignment**: If a sanction document is present, does its sanctioned amount, project name, or reference number match the request details?
 4. **Community Consent Document Formality**:
@@ -61,7 +61,7 @@ Return valid JSON strictly matching:
     {
       "name": "Identification Number Verification",
       "passed": true,
-      "evidence": "Aadhaar XXXX-XXXX matches between ID and form",
+      "evidence": "Aadhaar XXXX-XXXX matches between ID and form after normalizing prefixes",
       "reason": "ID match confirmed"
     },
     {

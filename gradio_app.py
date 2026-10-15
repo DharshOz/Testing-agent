@@ -327,7 +327,9 @@ def run_agent_solve_problem(
 def run_full_test_suite_action(mode: str) -> Tuple[str, pd.DataFrame]:
     """Runs tests and returns summary status and table."""
     set_testing_mode(True)
-    cmd = [sys.executable, "run_tests.py"]
+    venv_py = PROJECT_ROOT / "venv" / "Scripts" / "python.exe"
+    py_exec = str(venv_py) if venv_py.is_file() else sys.executable
+    cmd = [py_exec, "run_tests.py"]
     if mode == "Changed Stages Only":
         cmd.extend(["--mode", "changed"])
     elif mode == "Held-Out Cases Only":
@@ -486,7 +488,7 @@ with gr.Blocks(title="AI Document Workflow & Testing Agent") as demo:
                         lines=4,
                         placeholder="e.g. Normalize identity numbers by stripping scheme prefixes like 'AADHAAR-' before comparing."
                     )
-                    max_attempts_slider = gr.Slider(minimum=1, maximum=6, value=4, step=1, label="Max Fix Attempts")
+                    max_attempts_slider = gr.Slider(minimum=1, maximum=4, value=2, step=1, label="Max Fix Attempts")
                     solve_problem_btn = gr.Button("🤖 Solve Problem using Agent & My Idea", variant="primary")
 
             gr.Markdown("### 🔍 Before vs After Comparison & Verification Cascade")

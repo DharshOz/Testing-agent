@@ -83,7 +83,40 @@ T = TypeVar("T", bound=BaseModel)
 # Default to gpt-oss-20b to prevent Daily Token Limits (TPD) on 120b
 DEFAULT_MODEL = os.environ.get("GROQ_MODEL", "openai/gpt-oss-20b")
 _ACTIVE_MODEL_OVERRIDE: Optional[str] = None
+
+# File-backed 0-Token LLM Cache
+_CACHE_FILE = Path(".cache/llm_cache.json")
 _RESPONSE_CACHE: Dict[str, Any] = {}
+
+def _load_disk_cache():
+    global _RESPONSE_CACHE
+    try:
+        if _CACHE_FILE.is_file():
+            with open(_CACHE_FILE, "r", encoding="utf-8") as f:
+                _RESPONSE_CACHE = json.load(f)
+    except Exception:
+        _RESPONSE_CACHE = {}
+
+def _save_disk_cache():
+    try:
+        _CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
+        with open(_CACHE_FILE, "w", encoding="utf-8") as f:
+            json.dump(_RESPONSE_CACHE, f)
+    except Exception:
+        pass
+
+_load_disk_cache()
+
+_LAST_CALL_TIMESTAMP = 0.0
+
+def _rate_limit_throttle(min_interval: float = 2.0):
+    """Enforces smooth request spacing to prevent Groq RPM rate limits (max 30 RPM)."""
+    global _LAST_CALL_TIMESTAMP
+    now = time.time()
+    elapsed = now - _LAST_CALL_TIMESTAMP
+    if elapsed < min_interval:
+        time.sleep(min_interval - elapsed)
+    _LAST_CALL_TIMESTAMP = time.time()
 
 def get_effective_model(requested_model: Optional[str] = None) -> str:
     """Returns effective model, automatically downgrading from 120b if daily quota is reached."""
@@ -197,6 +230,7 @@ def llm_call(
         logger.info(f"LLM Call attempt {attempt}/{max_attempts} | mode={active_mode} | prompt={prompt_file} | hash={prompt_hash} | model={groq_model}")
 
         try:
+            _rate_limit_throttle(2.0)
             response = client.chat.completions.create(
                 model=groq_model,
                 messages=messages,
@@ -210,11 +244,12 @@ def llm_call(
             cleaned_json = _extract_json_substring(raw_content)
             parsed_dict = json.loads(cleaned_json)
 
+            _RESPONSE_CACHE[cache_key] = parsed_dict
+            _save_disk_cache()
+
             if schema is not None:
                 validated = schema.model_validate(parsed_dict)
-                _RESPONSE_CACHE[cache_key] = validated
                 return validated, prompt_hash
-            _RESPONSE_CACHE[cache_key] = parsed_dict
             return parsed_dict, prompt_hash
 
         except Exception as e:
@@ -243,6 +278,7 @@ def llm_call(
             else:
                 logger.warning(f"LLM Call attempt {attempt} failed ({e}) in {latency:.2f}s. Retrying...")
                 if attempt < max_attempts:
+                    time.sleep(1.5)
                     messages.append({"role": "assistant", "content": str(raw_content if 'raw_content' in locals() else "")})
                     messages.append({
                         "role": "user",

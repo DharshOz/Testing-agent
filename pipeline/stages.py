@@ -172,15 +172,19 @@ def extract_fields(input_data: ExtractFieldsInput) -> ExtractFieldsOutput:
     from qdrant_client.models import Distance, VectorParams, PointStruct
     from fastembed import TextEmbedding
 
-    # 1. Initialize local Qdrant
-    qdrant_path = "./qdrant_data"
-    os.makedirs(qdrant_path, exist_ok=True)
-    client = QdrantClient(path=qdrant_path)
+    # 1. Initialize local Qdrant in-memory to prevent Windows disk lock collisions
+    try:
+        client = QdrantClient(location=":memory:")
+    except Exception:
+        client = None
 
     collection_name = f"ticket_{input_data.ticket_id}".replace("-", "_")
 
     # Initialize fastembed embedding model
-    embedding_model = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
+    try:
+        embedding_model = TextEmbedding(model_name="BAAI/bge-small-en-v1.5")
+    except Exception:
+        embedding_model = None
 
     # 2. Prepare chunks
     all_chunks: List[Dict[str, Any]] = []
@@ -199,86 +203,78 @@ def extract_fields(input_data: ExtractFieldsInput) -> ExtractFieldsOutput:
             all_chunks.append(payload)
             chunk_texts.append(text)
 
-    # 3. Embed and upsert into Qdrant
-    if chunk_texts:
-        embeddings = list(embedding_model.embed(chunk_texts))
-        vector_dim = len(embeddings[0])
+    # 3. Embed and upsert into Qdrant (in-memory)
+    if client and embedding_model and chunk_texts:
+        try:
+            embeddings = list(embedding_model.embed(chunk_texts))
+            if embeddings:
+                vector_dim = len(embeddings[0])
+                client.recreate_collection(
+                    collection_name=collection_name,
+                    vectors_config=VectorParams(size=vector_dim, distance=Distance.COSINE),
+                )
+                points = [
+                    PointStruct(
+                        id=i,
+                        vector=embeddings[i].tolist(),
+                        payload=all_chunks[i]
+                    )
+                    for i in range(len(chunk_texts))
+                ]
+                client.upsert(collection_name=collection_name, points=points)
+        except Exception as e:
+            logger.warning(f"Vector indexing notice: {e}")
 
-        client.recreate_collection(
-            collection_name=collection_name,
-            vectors_config=VectorParams(size=vector_dim, distance=Distance.COSINE),
+    # 4. Extract all target fields in a single concise LLM call (minimizes token usage and eliminates 429 rate limits)
+    docs_summary = []
+    for file_doc in input_data.extracted_files:
+        if file_doc.raw_text:
+            snippet = file_doc.raw_text.strip()[:1400]
+            docs_summary.append(f"--- File: {file_doc.filename} ---\n{snippet}")
+
+    context_text = "\n\n".join(docs_summary) or "No document text available."
+
+    variables = {
+        "target_fields": TARGET_FIELDS,
+        "context_text": context_text
+    }
+
+    try:
+        res_dict, _ = llm_call(
+            prompt_file="prompts/extract_fields.md",
+            variables=variables
         )
+    except Exception as e:
+        logger.error(f"Failed extracting fields: {e}")
+        res_dict = {}
 
-        points = [
-            PointStruct(
-                id=i,
-                vector=embeddings[i].tolist(),
-                payload=all_chunks[i]
-            )
-            for i in range(len(chunk_texts))
-        ]
-        client.upsert(collection_name=collection_name, points=points)
+    raw_fields = res_dict.get("fields", {}) if isinstance(res_dict, dict) else {}
 
-    # 4. Extract each target field
     field_results: Dict[str, FieldResult] = {}
-    prompt_file = "prompts/extract_fields.md"
-
     for target in TARGET_FIELDS:
-        field_name = target["name"]
-        field_desc = target["description"]
-
-        retrieved_chunks = []
-        if chunk_texts:
-            query_text = f"{field_name}: {field_desc}"
-            query_vector = list(embedding_model.embed([query_text]))[0].tolist()
-            
-            if hasattr(client, "query_points"):
-                query_res = client.query_points(
-                    collection_name=collection_name,
-                    query=query_vector,
-                    limit=4
-                )
-                retrieved_chunks = [hit.payload for hit in query_res.points if hit.payload]
-            else:
-                search_results = client.search(
-                    collection_name=collection_name,
-                    query_vector=query_vector,
-                    limit=4
-                )
-                retrieved_chunks = [hit.payload for hit in search_results if hit.payload]
-
-        if not retrieved_chunks:
-            field_results[field_name] = FieldResult(
+        fname = target["name"]
+        finfo = raw_fields.get(fname, {})
+        if isinstance(finfo, dict):
+            field_results[fname] = FieldResult(
+                value=finfo.get("value"),
+                confidence=float(finfo.get("confidence", 0.0) or 0.0),
+                source_filename=finfo.get("source_filename"),
+                source_chunk_text=finfo.get("source_chunk_text")
+            )
+        elif finfo is not None:
+            field_results[fname] = FieldResult(
+                value=str(finfo),
+                confidence=1.0,
+                source_filename=None,
+                source_chunk_text=None
+            )
+        else:
+            field_results[fname] = FieldResult(
                 value=None,
                 confidence=0.0,
                 source_filename=None,
                 source_chunk_text=None
             )
-            continue
-
-        variables = {
-            "field_name": field_name,
-            "field_description": field_desc,
-            "chunks": retrieved_chunks
-        }
-
-        try:
-            field_res, _ = llm_call(
-                prompt_file=prompt_file,
-                variables=variables,
-                schema=FieldResult
-            )
-            field_results[field_name] = field_res
-        except Exception as e:
-            logger.error(f"Failed extracting field {field_name}: {e}")
-            field_results[field_name] = FieldResult(
-                value=None,
-                confidence=0.0,
-                source_filename=None,
-                source_chunk_text=f"Extraction error: {e}"
-            )
-        import time
-        time.sleep(0.15)
 
     return ExtractFieldsOutput(fields=field_results)
 
@@ -470,12 +466,20 @@ def validate_ticket(input_data: ValidateTicketInput) -> ValidateTicketOutput:
     fields_dict = {k: v.model_dump() for k, v in input_data.extracted_fields.items()}
     doc_check_dict = input_data.document_check.model_dump()
 
+    compact_docs = []
+    for doc in input_data.extracted_files:
+        d_dict = doc.model_dump()
+        raw = d_dict.get("raw_text", "")
+        if len(raw) > 1000:
+            d_dict["raw_text"] = raw[:1000] + "\n... [truncated for token efficiency]"
+        compact_docs.append(d_dict)
+
     prompt_file = "prompts/validate_ticket.md"
     variables = {
         "category": input_data.category,
         "extracted_fields_json": json.dumps(fields_dict, indent=2),
         "document_check_json": json.dumps(doc_check_dict, indent=2),
-        "documents": [doc.model_dump() for doc in input_data.extracted_files]
+        "documents": compact_docs
     }
 
     try:
